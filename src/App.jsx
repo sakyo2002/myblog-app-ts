@@ -2,6 +2,7 @@ import Grid from '@mui/material/Grid';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import BlogMainContent from './components/MainContent'
+import Latest from './components/latest'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Grid item xs={12}>
       <Header />
       <BlogMainContent />
+      <Latest />
       <Footer />
       </Grid>
     </Grid>
