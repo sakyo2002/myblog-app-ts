@@ -5,3 +5,11 @@
 - コントリビューション（草）を継続する
 - WorkLog.mdに進捗を記録し、次回の課題を設定する
 #### 課題：LatestにAuthorを追加する
+
+##10/18 課題：「メインコンテンツのStyleCardから」
+
+##10_20 課題「handleFocusの宣言から」
+
+##10/22 課題「Grid Git ４２１行目から」
+
+##10/25 課題「Cardのdescriptionのcolorとsizeを統一する」
