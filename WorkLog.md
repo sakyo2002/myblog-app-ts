@@ -13,3 +13,5 @@
 ##10/22 課題「Grid Git ４２１行目から」
 
 ##10/25 課題「Cardのdescriptionのcolorとsizeを統一する」
+
+##10/26 課題 「Cardのfocus時の動きをつける」
