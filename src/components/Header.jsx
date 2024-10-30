@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <AppBar
       position='fixed'
-      sx={{ boxShadow: 0, bgcolor: 'transparent', backgroundImage: 'none', mt: 10, p: 3 }}
+      sx={{ boxShadow: 0, bgcolor: 'transparent', backgroundImage: 'none', p: 3 }}
     >
       <Container maxWidth='xl'>
         <StyledToolbar variant='dense' disableGutters>

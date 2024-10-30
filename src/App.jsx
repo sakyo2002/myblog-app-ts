@@ -1,19 +1,33 @@
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import BlogMainContent from './components/MainContent'
 import Latest from './components/latest'
 
+const theme = createTheme({
+  palette: {
+    background: {
+      paper: '#f5f5f5',
+    },
+  },
+});
+
+
 function App() {
   return (
-    <Grid container direction='column' sx={{ width: '100vw', height: '100vh' }}>
-      <Grid item xs={12}>
-      <Header />
-      <BlogMainContent />
-      <Latest />
-      <Footer />
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      <Grid container direction='column' sx={{ width: '100vw', height: '100vh' }}>
+        <Grid item xs={12}>
+        <Header />
+        <BlogMainContent />
+        <Latest />
+        <Footer />
+        </Grid>
       </Grid>
-    </Grid>
+    </ThemeProvider>
   )
 }
 
