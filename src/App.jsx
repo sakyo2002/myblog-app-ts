@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Header from './components/Header'
 import Footer from './components/Footer'
-import BlogMainContent from './components/MainContent'
+import BlogMainContent from './components/blog/MainContent';
 import Latest from './components/latest'
 
 const theme = createTheme({
