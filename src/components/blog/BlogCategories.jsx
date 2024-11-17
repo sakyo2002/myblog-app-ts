@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Chip } from '@mui/material'
+import { Box, Chip, FormControl, OutlinedInput, InputAdornment } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 
 const categories = [
@@ -16,21 +16,22 @@ const handleCategoryClick = (categoryId) => {
 
 export function Search () {
   return (
-    <FromControl>
+    <FormControl sx={{ width: { xs: '100%', md: '25ch' }}} variant='outlined'>
       <OutlinedInput
+        size='small'
+        sx={{ borderRadius: 5, flexGrow: 1 }}
         id='search'
         placeholder='Search…'
-        sx={{ flexGrow: 1 }}
-        starAdorment={
-          <InputAdorment position='start' sx={{ color: 'text.primary' }}>
+        startAdornment={
+          <InputAdornment position='start' sx={{ color: 'text.primary' }}>
             <SearchIcon />
-          </InputAdorment>
+          </InputAdornment>
         }
         inputProps={{
-          'arai-lable': 'search',
+          'arai-label': 'search',
         }}
       />
-    </FromControl>
+    </FormControl>
   )
 }
 
@@ -61,6 +62,7 @@ export const BlogCategories = ({}) => {
         alignItems: 'center',
         gap: 4,
         overflow: 'auto',
+        my: 3,
       }}
     >
       <Box
