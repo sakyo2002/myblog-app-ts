@@ -10,9 +10,6 @@ const categories = [
   {id: 'engineering', label: 'Engineering'},
 ]
 
-const handleCategoryClick = (categoryId) => {
-  setSelectedCategories(categoryId)
-}
 
 export function Search () {
   return (
@@ -37,22 +34,13 @@ export function Search () {
 
 
 export const BlogCategories = ({}) => {
-  const [selectedCategories, setSelectedCategories] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   // const [searchQuery, setSearchQuery] = useState('');
-
+  
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategories(categoryId)
+  }
   return (
-    // <div>
-    //   {categories.map((category) => (
-    //     <button
-    //       key={category.id}
-    //       onClick={() => handleCategoryClick(category.id)}
-    //     >
-    //       {category.label}
-    //     </button>
-    //   ))}
-    //   <SearchIcon />
-    // </div>
-
     <Box
       sx={{
         display: 'flex',
@@ -79,8 +67,14 @@ export const BlogCategories = ({}) => {
             onClick={handleCategoryClick}
             label={category.label}
             sx={{
-              backgroundColor: 'transparent',
+              backgroundColor: selectedCategory === category.id ? 'primary.main' : 'transparent',
+              color: selectedCategory === category.id ? 'white' : 'text.primary',
               border: 'none',
+              '&hover': {
+                backgroundColor: selectedCategory === category.id
+                ? 'priamry.dark'
+                : 'action.hover'
+              },
             }}
           />
         ))}

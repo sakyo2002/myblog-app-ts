@@ -141,10 +141,10 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
     left: 0,
     backgroundColor: theme.palette.text.primary,
     opacity: 0.3,
-    transition: 'width 0.3s ease, opacity 0.3s ease',
+    transition: 'width 0.6s ease, opacity 0.3s ease',
   },
   '&:hover::before': {
-    width: '100px',
+    width: '100%',
   },
 }));
 
@@ -201,7 +201,7 @@ const handleBlur = () => {
   return (
     <Container maxWidth='xl'>
       <Box sx={{ p: 3 }}>
-        <Typography variant='h4' gutterBottom>
+        <Typography variant='h4' fontWeight={900} gutterBottom>
           Latest
         </Typography>
         <Grid container spacing={8} columns={12}>
@@ -222,6 +222,7 @@ const handleBlur = () => {
                 <TitleTypography
                   gutterBottom
                   variant='h6'
+                  fontWeight={600}
                   onFocus={() => handleFocus(index)}
                   onBlur={handleBlur}
                   tabIndex={0}
@@ -239,7 +240,7 @@ const handleBlur = () => {
           ))}
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4 }}>
-          <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} />
+          <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} color='primary' />
         </Box>
       </Box>
     </Container>
