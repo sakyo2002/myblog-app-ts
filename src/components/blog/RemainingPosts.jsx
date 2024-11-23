@@ -1,12 +1,13 @@
 import { Grid, Box, CardMedia, Typography } from '@mui/material';
-import { StyledCard } from '../styled/CardComponents';
-import { StyledCardContent } from '../styled/CardComponents';
-import { StyledTypography } from '../styled/CardComponents';
+import { StyledCard, StyledCardContent, StyledTypography } from '../styled/CardComponents';
 import { Author } from './Author';
 
 export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
+  if (!posts || posts.length === 0) return <div>No posts available</div>;
+
   return (
     <Grid container spacing={2}>
+      {/* 1カラム目 */}
       <Grid item xs={12} md={4}>
         <StyledCard
           variant='outlined'
@@ -18,107 +19,112 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
         >
           <CardMedia
             component='img'
-            alt={posts[0].title}
-            image={posts[0].img}
+            alt={posts[0]?.title}
+            image={posts[0]?.img}
             sx={{
-              height: {sm: 'auto', md: '50%'},
-              aspectRatio: { sm: '16 / 9', md: ''},
+              height: { sm: 'auto', md: '50%' },
+              aspectRatio: { sm: '16 / 9', md: '' },
             }}
           />
           <StyledCardContent>
-            <div>
-              <Typography gutterBottom variant='caption' component='div'>
-                {posts[0].tag}
-              </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-                {posts[0].title}
-              </Typography>
-              <StyledTypography
-                variant='body2'
-                color='text.secondary'
-                gutterBottom
-                >
-                {posts[0].description}
-              </StyledTypography>
-            </div>
+            <Typography gutterBottom variant='caption' component='div'>
+              {posts[0]?.tag}
+            </Typography>
+            <Typography gutterBottom variant='h6' component='div'>
+              {posts[0]?.title}
+            </Typography>
+            <StyledTypography variant='body2' color='text.secondary' gutterBottom>
+              {posts[0]?.description}
+            </StyledTypography>
           </StyledCardContent>
-          <Author authors={posts[0].authors} />
+          {posts[0]?.authors && <Author authors={posts[0].authors} />}
         </StyledCard>
       </Grid>
 
-    <Grid item xs={12} md={4}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, height: '100%' }}>
-        {posts.slice(1, 3).map((post, index) => (
+      {/* 2カラム目（縦に2つのカード） */}
+      <Grid item xs={12} md={4}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {/* 1つ目のカード（文字のみ） */}
           <StyledCard
-            key={`stacked-${index}`}
             variant='outlined'
             sx={{ height: '100%' }}
-            onFocus={() => onFocus(index + 1)}
+            onFocus={() => onFocus(3)}
             onBlur={onBlur}
             tabIndex={0}
-            className={focusedCardIndex === index + 1 ? 'Mui-focused' : ' '}
+            className={focusedCardIndex === 3 ? 'Mui-focused' : ' '}
           >
             <StyledCardContent>
-              <div>
-                <Typography gutterBottom variant='caption' component='div'>
-                  {post.tag}
-                </Typography>
-                <Typography gutterBottom variant='h6' component='div'>
-                  {post.title}
-                </Typography>
-                <StyledTypography
-                  variant='body2'
-                  color='text.secondary'
-                  gutterBottom
-                  >
-                  {post.description}
-                </StyledTypography>
-              </div>
+              <Typography gutterBottom variant='caption' component='div'>
+                {posts[1]?.tag}
+              </Typography>
+              <Typography gutterBottom variant='h6' component='div'>
+                {posts[1]?.title}
+              </Typography>
+              <StyledTypography variant='body2' color='text.secondary' gutterBottom>
+                {posts[1]?.description}
+              </StyledTypography>
             </StyledCardContent>
-            <Author authors={post.authors} />
+            {posts[1]?.authors && <Author authors={posts[1].authors} />}
           </StyledCard>
-        ))}
-      </Box>
-    </Grid>
 
-    <Grid item xs={12} md={4}>
+          {/* 2つ目のカード（文字のみ） */}
+          <StyledCard
+            variant='outlined'
+            sx={{ height: '100%' }}
+            onFocus={() => onFocus(4)}
+            onBlur={onBlur}
+            tabIndex={0}
+            className={focusedCardIndex === 4 ? 'Mui-focused' : ' '}
+          >
+            <StyledCardContent>
+              <Typography gutterBottom variant='caption' component='div'>
+                {posts[2]?.tag}
+              </Typography>
+              <Typography gutterBottom variant='h6' component='div'>
+                {posts[2]?.title}
+              </Typography>
+              <StyledTypography variant='body2' color='text.secondary' gutterBottom>
+                {posts[2]?.description}
+              </StyledTypography>
+            </StyledCardContent>
+            {posts[2]?.authors && <Author authors={posts[2].authors} />}
+          </StyledCard>
+        </Box>
+      </Grid>
+
+      {/* 3カラム目 */}
+      <Grid item xs={12} md={4}>
         <StyledCard
           variant='outlined'
           sx={{ height: '100%' }}
-          onFocus={() => onFocus(3)}
+          onFocus={() => onFocus(5)}
           onBlur={onBlur}
           tabIndex={0}
-          className={focusedCardIndex === 3 ? 'Mui-focused' : ' '}
+          className={focusedCardIndex === 5 ? 'Mui-focused' : ' '}
         >
           <CardMedia
             component='img'
-            alt={posts[3].title}
-            image={posts[3].img}
+            alt={posts[3]?.title}
+            image={posts[3]?.img}
             sx={{
               height: { sm: 'auto', md: '50%' },
-              aspectRatio: { sm: '16 / 9', md: '' }
+              aspectRatio: { sm: '16 / 9', md: '' },
             }}
           />
           <StyledCardContent>
-            <div>
-              <Typography gutterBottom variant='caption' component='div'>
-                {posts[3].tag}
-              </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-                {posts[3].title}
-              </Typography>
-              <StyledTypography
-                variant='body2'
-                color='text.secondary'
-                gutterBottom
-                >
-                {posts[3].description}
-              </StyledTypography>
-            </div>
+            <Typography gutterBottom variant='caption' component='div'>
+              {posts[3]?.tag}
+            </Typography>
+            <Typography gutterBottom variant='h6' component='div'>
+              {posts[3]?.title}
+            </Typography>
+            <StyledTypography variant='body2' color='text.secondary' gutterBottom>
+              {posts[3]?.description}
+            </StyledTypography>
           </StyledCardContent>
-          <Author authors={posts[3].authors} />
+          {posts[3]?.authors && <Author authors={posts[3].authors} />}
         </StyledCard>
+      </Grid>
     </Grid>
-  </Grid>
-  )
-}
+  );
+};

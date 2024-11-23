@@ -4,6 +4,7 @@ import { Author } from './Author';
 
 
 export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
+
   return (
     <Grid container spacing={2} sx={{ mb: 2 }}>
     {posts.map((post, index) => (

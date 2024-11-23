@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Container, Box, Typography } from '@mui/material';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { FeaturedPosts } from './FeaturedPosts';
-import { RemainingPosts } from './remainingPosts';
+import { RemainingPosts } from './RemainingPosts';
 import { BlogCategories } from './Blogcategories';
 
 export default function BlogMainContent() {
@@ -20,6 +20,8 @@ export default function BlogMainContent() {
   if (loading) return <div>読み込み中...</div>
   if (error) return <div>{error}</div>
 
+  const displayedPosts = posts.slice(0, 6)
+
   return (
     <Container maxWidth='xl' sx={{ mt: 12 }}>
       <Box sx={{ p: 3 }}>
@@ -31,13 +33,13 @@ export default function BlogMainContent() {
         </Typography>
         <BlogCategories />
         <FeaturedPosts
-          posts={posts.slice(0, 2)}
+          posts={displayedPosts.slice(0, 2)}
           onFocus={handleFocus}
           onBlur={handleBlur}
           focusedCardIndex={focusedCardIndex}
           />
         <RemainingPosts
-          posts={posts.slice(2, 6)}
+          posts={displayedPosts.slice(2)}
           onFocus={handleFocus}
           onBlur={handleBlur}
           focusedCardIndex={focusedCardIndex}

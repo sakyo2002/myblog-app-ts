@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Box, Chip, FormControl, OutlinedInput, InputAdornment } from '@mui/material'
+import { Box, Chip, FormControl, OutlinedInput, InputAdornment, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+import { BlogPostsForm } from './BlogPostsForm';
 
 const categories = [
   {id: 'all', label: 'Allcategories'},
@@ -32,14 +33,34 @@ export function Search () {
   )
 }
 
+export function CreatePost ({ onClick }) {
+  return (
+    <Button variant='contained' color='primary'  onClick={onClick}>
+      投稿
+    </Button>
+  )
+}
+
 
 export const BlogCategories = ({}) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isFormOpen, setIsFormOpen] = useState(false);
   // const [searchQuery, setSearchQuery] = useState('');
+  console.log('isFormOpen:', isFormOpen); // 状態の確認
+
   
   const handleCategoryClick = (categoryId) => {
-    setSelectedCategories(categoryId)
+    setSelectedCategory(categoryId)
   }
+
+  const handleOpenForm = () => {
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -72,15 +93,20 @@ export const BlogCategories = ({}) => {
               border: 'none',
               '&hover': {
                 backgroundColor: selectedCategory === category.id
-                ? 'priamry.dark'
+                ? 'primary.dark'
                 : 'action.hover'
               },
             }}
           />
         ))}
       </Box>
-      <Search />
-
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ mr: 3 }}>
+          <CreatePost onClick={handleOpenForm} />
+        </Box>
+        <BlogPostsForm open={isFormOpen} onClose={handleCloseForm} />
+        <Search/>
+      </Box>
     </Box>
   )
 }

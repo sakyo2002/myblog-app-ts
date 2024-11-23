@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import BlogMainContent from './components/blog/MainContent';
 import Latest from './components/latest'
+import { BlogPostsForm } from './components/blog/BlogPostsForm';
 
 const theme = createTheme({
   palette: {
@@ -23,6 +24,7 @@ function App() {
         <Grid item xs={12}>
         <Header />
         <BlogMainContent />
+        <BlogPostsForm />
         <Latest />
         <Footer />
         </Grid>
