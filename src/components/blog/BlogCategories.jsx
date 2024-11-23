@@ -33,15 +33,6 @@ export function Search () {
   )
 }
 
-export function CreatePost ({ onClick }) {
-  return (
-    <Button variant='contained' color='primary'  onClick={onClick}>
-      投稿
-    </Button>
-  )
-}
-
-
 export const BlogCategories = ({}) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -101,9 +92,14 @@ export const BlogCategories = ({}) => {
         ))}
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ mr: 3 }}>
-          <CreatePost onClick={handleOpenForm} />
-        </Box>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={handleOpenForm}
+          sx={{ mr: 3 }}
+          >
+          投稿
+        </Button>
         <BlogPostsForm open={isFormOpen} onClose={handleCloseForm} />
         <Search/>
       </Box>
