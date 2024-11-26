@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+  Box,
+  Typography,
   TextField,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
   {id: 1, tag: 'Company'},
@@ -19,61 +15,60 @@ const categories = [
   {id: 4, tag: 'Engineering'},
 ];
 
+export const BlogPostsForm = ({ formData, setFormData }) => {
+  const navigate = useNavigate();
 
+  const handleChange = () => {
+    const {name, value} = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-export const BlogPostsForm = ({ open, onClose }) => {
-
-  const [tag, setTag] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const handleSubmit = () => {
+    navigate('/');
+  };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>新規投稿</DialogTitle>
-      <DialogContent>
-        {/* カテゴリー選択 */}
-        <FormControl fullWidth >
-          <InputLabel>カテゴリー</InputLabel>
-          <Select
-            name='tag'
-            value={tag}
-            onChange={(e) => (setTag(e.target.value))}
-            label='カテゴリー'
-          >
-            {categories.map((category) => (
-              <MenuItem key={category.id} value={category.tag}>
-                {category.tag}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        {/* タイトルの入力 */}
-        <TextField
-          autoFocus
-          margin='dense'
-          id='title'
-          label='タイトル'
-          type='text'
-          fullWidth
-          variant='outlined'
-          onChange={(e) => (setTitle(e.target.value))}
-        />
-        {/* 説明の入力 */}
-        <TextField
-          autoFocus
-          margin='dense'
-          id='description'
-          label='内容'
-          type='text'
-          fullWidth
-          variant='outlined'
-          onChange={(e) => (setDescription(e.target.value))}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>キャンセル</Button>
-        <Button onClick={onClose}>投稿</Button>
-      </DialogActions>
-    </Dialog>
+    <Box>
+      <Typography>新規投稿</Typography>
+      <TextField
+        select
+        name='tag'
+        label='カテゴリー'
+        fullWidth
+        value={formData.tag}
+      >
+        {categories.map((category) => (
+          <MenuItem>
+            {category.tag}
+          </MenuItem>
+        ))}
+      </TextField>
+      <TextField
+        name='title'
+        label='タイトル'
+        fullWidth
+        value={formData.title}
+        onChange={handleChange}
+      />
+      <TextField
+        name='description'
+        label='内容'
+        fullWidth
+        value={formData.description}
+        variant='outlined'
+        onChange={handleChange}
+      />
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+        <Button variant='content' color='primary' onClick={handleSubmit}>
+          投稿
+        </Button>
+        <Button variant='outlined' color='secondary' onClick={() => navigate('/')} >
+          キャンセル
+        </Button>
+      </Box>
+    </Box>
   )
 }

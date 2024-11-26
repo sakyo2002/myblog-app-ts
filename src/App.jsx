@@ -1,3 +1,5 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -20,15 +22,23 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
-      <Grid container direction='column' sx={{ width: '100vw', height: '100vh' }}>
-        <Grid item xs={12}>
-        <Header />
-        <BlogMainContent />
-        <BlogPostsForm />
-        <Latest />
-        <Footer />
+      <Router>
+        <Grid container direction='column' sx={{ width: '100vw', height: '100vh' }}>
+          <Grid item xs={12}>
+          <Header />
+          <Routes>
+            <Route path='/' element={<>
+              <BlogMainContent />
+              <BlogPostsForm />
+              <Latest />
+            </>}>
+            </Route>
+            <Route path='/new-post' element={<BlogPostsForm />} />
+          </Routes>
+          <Footer />
+          </Grid>
         </Grid>
-      </Grid>
+      </Router>
     </ThemeProvider>
   )
 }
