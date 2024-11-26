@@ -15,8 +15,13 @@ const categories = [
   {id: 4, tag: 'Engineering'},
 ];
 
-export const BlogPostsForm = ({ formData, setFormData }) => {
+export const BlogPostsForm = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    tag: '',
+    title: '',
+    description: '',
+  })
 
   const handleChange = () => {
     const {name, value} = e.target;
@@ -31,7 +36,7 @@ export const BlogPostsForm = ({ formData, setFormData }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 3, boxShadow: 3 }}>
       <Typography>新規投稿</Typography>
       <TextField
         select
@@ -41,7 +46,7 @@ export const BlogPostsForm = ({ formData, setFormData }) => {
         value={formData.tag}
       >
         {categories.map((category) => (
-          <MenuItem>
+          <MenuItem key={category.id}>
             {category.tag}
           </MenuItem>
         ))}

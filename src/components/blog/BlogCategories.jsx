@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Chip, FormControl, OutlinedInput, InputAdornment, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
   {id: 'all', label: 'Allcategories'},
@@ -37,18 +37,9 @@ export function Search () {
 
 export const BlogCategories = ({}) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  // const [searchQuery, setSearchQuery] = useState('');
 
   const navigate = useNavigate();
 
-  const initialFormData = {
-    tag: '',
-    title: '',
-    description: '',
-  }
-
-  const [formData, setFormData] = useState(initialFormData)
-  
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId)
   }
@@ -96,11 +87,12 @@ export const BlogCategories = ({}) => {
         <Button
           variant='contained'
           color='primary'
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/new-post')}
           sx={{ mr: 3 }}
           >
           投稿
         </Button>
+        <Search />
       </Box>
     </Box>
   )
