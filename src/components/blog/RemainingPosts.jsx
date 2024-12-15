@@ -1,6 +1,5 @@
-import { Grid, Box, CardMedia, Typography } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import { StyledCard, StyledCardContent, StyledTypography } from '../styled/CardComponents';
-import { Author } from './Author';
 
 export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
   if (!posts || posts.length === 0) return <div>No posts available</div>;
@@ -17,15 +16,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
           tabIndex={0}
           className={focusedCardIndex === 2 ? 'Mui-focused' : ' '}
         >
-          <CardMedia
-            component='img'
-            alt={posts[0]?.title}
-            image={posts[0]?.img}
-            sx={{
-              height: { sm: 'auto', md: '50%' },
-              aspectRatio: { sm: '16 / 9', md: '' },
-            }}
-          />
           <StyledCardContent>
             <Typography gutterBottom variant='caption' component='div'>
               {posts[0]?.tag}
@@ -37,7 +27,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
               {posts[0]?.description}
             </StyledTypography>
           </StyledCardContent>
-          {posts[0]?.authors && <Author authors={posts[0].authors} />}
         </StyledCard>
       </Grid>
 
@@ -64,7 +53,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
                 {posts[1]?.description}
               </StyledTypography>
             </StyledCardContent>
-            {posts[1]?.authors && <Author authors={posts[1].authors} />}
           </StyledCard>
 
           {/* 2つ目のカード（文字のみ） */}
@@ -87,7 +75,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
                 {posts[2]?.description}
               </StyledTypography>
             </StyledCardContent>
-            {posts[2]?.authors && <Author authors={posts[2].authors} />}
           </StyledCard>
         </Box>
       </Grid>
@@ -102,15 +89,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
           tabIndex={0}
           className={focusedCardIndex === 5 ? 'Mui-focused' : ' '}
         >
-          <CardMedia
-            component='img'
-            alt={posts[3]?.title}
-            image={posts[3]?.img}
-            sx={{
-              height: { sm: 'auto', md: '50%' },
-              aspectRatio: { sm: '16 / 9', md: '' },
-            }}
-          />
           <StyledCardContent>
             <Typography gutterBottom variant='caption' component='div'>
               {posts[3]?.tag}
@@ -122,7 +100,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
               {posts[3]?.description}
             </StyledTypography>
           </StyledCardContent>
-          {posts[3]?.authors && <Author authors={posts[3].authors} />}
         </StyledCard>
       </Grid>
     </Grid>

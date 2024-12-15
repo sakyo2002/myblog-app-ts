@@ -4,11 +4,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 
 const categories = [
-  {id: 'all', label: 'Allcategories'},
-  {id: 'company', label: 'Company'},
-  {id: 'product', label: 'Product'},
-  {id: 'design', label: 'Design'},
-  {id: 'engineering', label: 'Engineering'},
+  {id: 'all', tag: 'Allcategories'},
+  {id: 'company', tag: 'Company'},
+  {id: 'product', tag: 'Product'},
+  {id: 'design', tag: 'Design'},
+  {id: 'engineering', tag: 'Engineering'},
 ]
 
 
@@ -36,12 +36,12 @@ export function Search () {
 
 
 export const BlogCategories = ({}) => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedTag, setSelectedTag] = useState([]);
 
   const navigate = useNavigate();
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId)
+  const handleCategoryClick = (tagId) => {
+    setSelectedTag(tagId)
   }
 
   return (
@@ -59,7 +59,7 @@ export const BlogCategories = ({}) => {
     >
       <Box
         sx={{
-          display: 'inline-flex',
+          display: 'flex',
           flexDirection: 'row',
           gap: 3,
           overflow: 'auto',
@@ -69,13 +69,13 @@ export const BlogCategories = ({}) => {
           <Chip
             key={category.id}
             onClick={handleCategoryClick}
-            label={category.label}
+            label={category.tag}
             sx={{
-              backgroundColor: selectedCategory === category.id ? 'primary.main' : 'transparent',
-              color: selectedCategory === category.id ? 'white' : 'text.primary',
+              backgroundColor: selectedTag === category.id ? 'primary.main' : 'transparent',
+              color: selectedTag === category.id ? 'white' : 'text.primary',
               border: 'none',
               '&hover': {
-                backgroundColor: selectedCategory === category.id
+                backgroundColor: selectedTag === category.id
                 ? 'primary.dark'
                 : 'action.hover'
               },

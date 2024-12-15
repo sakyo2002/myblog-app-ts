@@ -1,7 +1,5 @@
-import { Grid, CardMedia, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { StyledCard, StyledCardContent, StyledTypography } from '../styled/CardComponents';
-import { Author } from './Author';
-
 
 export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
 
@@ -16,16 +14,6 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
           tabIndex={0}
           className={focusedCardIndex === index ? 'Mui-focused' : ' '}
         >
-          <CardMedia
-            component='img'
-            alt={post.title}
-            image={post.img}
-            sx={{
-              height: 400,
-              borderBottom: '1px solid',
-              borderColor: 'divider'
-            }}
-          />
           <StyledCardContent>
             <Typography variant='caption'>{post.tag}</Typography>
             <Typography variant='h6'>{post.title}</Typography>
@@ -33,7 +21,6 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
               {post.description}
             </StyledTypography>
           </StyledCardContent>
-          <Author authors={post.authors} />
         </StyledCard>
       </Grid>
     ))}

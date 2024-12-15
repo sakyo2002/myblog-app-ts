@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient';
+import { supabase } from '../utils/supabaseClient';
 
 export const useBlogPosts = () => {
   const [posts, setPosts] = useState([])
@@ -9,17 +9,18 @@ export const useBlogPosts = () => {
   // const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    //実際のAPIが実装されるまではモックデータを使用する
     const fetchPosts = async () => {
+      setLoading(true); // データ取得開始時にローディングをtrueに設定
       const { data, error } = await supabase
       .from('posts')
-      .select('*');
+      .select('*')
+      .order('date', { ascending: false });
 
       if (error) {
-        setError(error.message);
+        console.error('Error fetching posts:', error.message);  // エラーメッセージを出力
+        setError(error.message); // エラーメッセージを設定
       } else {
-        console.log(data)
-        setPosts(data);
+        setPosts(data); // 取得したデータをpostsに格納
       }
       setLoading(false);
     };
@@ -29,6 +30,7 @@ export const useBlogPosts = () => {
 
   return {
     posts,
+    setPosts,
     loading,
     error,
   }
