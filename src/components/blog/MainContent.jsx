@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Container, Box, Typography } from '@mui/material';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { FeaturedPosts } from './FeaturedPosts';
-import { RemainingPosts } from './remainingPosts';
+import { RemainingPosts } from './RemainingPosts.jsx';
 import { BlogCategories } from './Blogcategories';
 import LoadingPage from '../common/LoadingPage';
 
