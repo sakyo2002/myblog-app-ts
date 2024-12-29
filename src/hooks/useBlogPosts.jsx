@@ -5,7 +5,11 @@ export const useBlogPosts = () => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+<<<<<<< HEAD
   const [selectedPost, setSelectedPost] = useState(null)
+=======
+  // const [selectedCategory, setSelectedCategory] = useState('All categories')
+>>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
   // const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
@@ -28,6 +32,7 @@ export const useBlogPosts = () => {
     fetchPosts()
   }, [])
 
+<<<<<<< HEAD
   const fetchPostById = async (postId) => {
     setLoading(true); //ローディング開始
     const { data, error } = await supabase
@@ -45,12 +50,17 @@ export const useBlogPosts = () => {
     setLoading(false); //ローディング終了
   }
 
+=======
+>>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
   return {
     posts,
     setPosts,
     loading,
     error,
+<<<<<<< HEAD
     fetchPostById,
     selectedPost,
+=======
+>>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
   }
 }
