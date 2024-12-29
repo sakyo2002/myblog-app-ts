@@ -12,14 +12,9 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-<<<<<<< HEAD
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.2.0",
     "@mui/system": "^6.2.0",
-=======
-    "@mui/icons-material": "^5.16.7",
-    "@mui/material": "^5.16.7",
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
     "@supabase/supabase-js": "^2.46.1",
     "lucide-react": "^0.456.0",
     "react": "^18.2.0",

@@ -17,12 +17,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
           className={focusedCardIndex === 2 ? 'Mui-focused' : ' '}
         >
           <StyledCardContent>
-<<<<<<< HEAD
-=======
-            <Typography gutterBottom variant='caption' component='div'>
-              {posts[0]?.tag}
-            </Typography>
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
             <Typography gutterBottom variant='h6' component='div'>
               {posts[0]?.title}
             </Typography>
@@ -46,12 +40,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             className={focusedCardIndex === 3 ? 'Mui-focused' : ' '}
           >
             <StyledCardContent>
-<<<<<<< HEAD
-=======
-              <Typography gutterBottom variant='caption' component='div'>
-                {posts[1]?.tag}
-              </Typography>
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
               <Typography gutterBottom variant='h6' component='div'>
                 {posts[1]?.title}
               </Typography>
@@ -71,12 +59,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             className={focusedCardIndex === 4 ? 'Mui-focused' : ' '}
           >
             <StyledCardContent>
-<<<<<<< HEAD
-=======
-              <Typography gutterBottom variant='caption' component='div'>
-                {posts[2]?.tag}
-              </Typography>
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
               <Typography gutterBottom variant='h6' component='div'>
                 {posts[2]?.title}
               </Typography>
@@ -99,12 +81,6 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
           className={focusedCardIndex === 5 ? 'Mui-focused' : ' '}
         >
           <StyledCardContent>
-<<<<<<< HEAD
-=======
-            <Typography gutterBottom variant='caption' component='div'>
-              {posts[3]?.tag}
-            </Typography>
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
             <Typography gutterBottom variant='h6' component='div'>
               {posts[3]?.title}
             </Typography>

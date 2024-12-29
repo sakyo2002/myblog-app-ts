@@ -1,6 +1,5 @@
 import { Grid, Typography } from '@mui/material';
 import { StyledCard, StyledCardContent, StyledTypography } from '../styled/CardComponents';
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 
 export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
@@ -9,10 +8,6 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
   const handleCardClick = (postId) => {
     navigate(`/post/${postId}`);
   };
-=======
-
-export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
 
   return (
     <Grid container spacing={2} sx={{ mb: 2 }}>
@@ -24,7 +19,6 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
           onBlur={onBlur}
           tabIndex={0}
           className={focusedCardIndex === index ? 'Mui-focused' : ' '}
-<<<<<<< HEAD
           onClick={() => handleCardClick(post.id)}
         >
           <StyledCardContent>
@@ -35,11 +29,6 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
                 day: '2-digit',
               })}
             </Typography>
-=======
-        >
-          <StyledCardContent>
-            <Typography variant='caption'>{post.tag}</Typography>
->>>>>>> 21159d915c06a4a0fc6b953d6866fe6392abf34b
             <Typography variant='h6'>{post.title}</Typography>
             <StyledTypography variant='body2' color='text.secondary'>
               {post.description}
