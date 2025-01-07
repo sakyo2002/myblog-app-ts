@@ -4,10 +4,21 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+<<<<<<< HEAD
 import Container from '@mui/material/Container';
 import CodeSproutIcon from './CodeSproutIcon';
 import SearchBar from './SearchBar';
 import CreatePostButton from "./CreatePostButton";
+=======
+import IconButton from '@mui/material/IconButton';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
+import Drawer from '@mui/material/Drawer';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import Sitemark from './SitemarkIcon';
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -37,10 +48,35 @@ export default function Header() {
     >
       <Container maxWidth='xl'>
         <StyledToolbar variant='dense' disableGutters>
+<<<<<<< HEAD
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <CodeSproutIcon />
             <SearchBar />
             <CreatePostButton />
+=======
+          <Sitemark />
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0}}>
+            <Box sx={{ display: {xs: 'none', md: 'flex' }}}>
+              <Button variant='text' color= 'info' size='small' sx={{ textTransform: 'none', padding: '8px 12px', color: '#47536B' }} >
+                Features
+              </Button>
+              <Button variant='text' color='info' size='small' sx={{ textTransform: 'none', padding: '8px 12px', color: '#47536B' }} >
+                Testimonials
+              </Button>
+              <Button variant='text' color='info' size='small' sx={{ textTransform: 'none', padding: '8px 12px', color: '#47536B' }} >
+                Highlights
+              </Button>
+              <Button variant='text' color='info' size='small' sx={{ textTransform: 'none', padding: '8px 12px', color: '#47536B' }} >
+                Pricing
+              </Button>
+              <Button variant='text' color='info' size='small' sx={{ textTransform: 'none', padding: '8px 12px', minWidth: 'auto', color: '#47536B' }} >
+                FAQ
+              </Button>
+              <Button variant='text' color='info' size='small' sx={{ textTransform: 'none', padding: '8px 12px', minWidth: 'auto', color: '#47536B' }} >
+                Blog
+              </Button>
+            </Box>
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
           </Box>
           <Box
             sx={{
@@ -56,7 +92,47 @@ export default function Header() {
               Sign up
             </Button>
           </Box>
+<<<<<<< HEAD
           
+=======
+          <Box sx={{ display: { sm: 'flex', md: 'none' } }}>
+            <IconButton aria-label='Menu button' onClick={toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
+            <Drawer anchor='top' open={open} onClose={toggleDrawer(false)}>
+              <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <IconButton>
+                    <CloseRoundedIcon />
+                  </IconButton>
+                </Box>
+                <Divider sx={{ my: 3 }} />
+                <MenuItem>Feature</MenuItem>
+                <MenuItem>Testimonials</MenuItem>
+                <MenuItem>Highlights</MenuItem>
+                <MenuItem>Pricing</MenuItem>
+                <MenuItem>FAQ</MenuItem>
+                <MenuItem>Blog</MenuItem>
+                <MenuItem>
+                  <Button color='primary' variant='contained' fullWidth>
+                    Sign up
+                  </Button>
+                </MenuItem>
+                <MenuItem>
+                  <Button color='primary' variant='outlined' fullWidth>
+                    Sign up
+                  </Button>
+                </MenuItem>
+              </Box>
+            </Drawer>
+          </Box>
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
         </StyledToolbar>
       </Container>
     </AppBar>

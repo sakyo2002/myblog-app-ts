@@ -7,6 +7,7 @@ export default function PostContentEditor({ value, onChange }) {
   };
 
   return (
+<<<<<<< HEAD
     <Box
       sx={{
         height: '100%',
@@ -15,6 +16,9 @@ export default function PostContentEditor({ value, onChange }) {
           height: '100%',
         }
     }}>
+=======
+    <Box sx={{ height: '100%' }}>
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
       <TextField
         aria-label='本文'
         placeholder='エンジニアに関わる知識をMarkdown記法で書いて共有しよう'
@@ -23,6 +27,7 @@ export default function PostContentEditor({ value, onChange }) {
         value={value}
         onChange={handleChange}
         multiline
+<<<<<<< HEAD
         minRows={5}
         InputProps={{
           sx: {
@@ -31,12 +36,20 @@ export default function PostContentEditor({ value, onChange }) {
             padding: '8px',
             height: '100%',
             overflow: 'auto',
+=======
+        InputProps={{
+          sx: {
+            height: '100%',
+            backgroundColor: 'white',
+            textAlign: 'left',
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
           }
         }}
         sx={{
           width: '100%',
           height: '100%',
           '& .MuiOutlinedInput-root': {
+<<<<<<< HEAD
             height: '100%',
             borderRadius: '5px',
             '& .MuiInputBase-input': {
@@ -59,6 +72,16 @@ export default function PostContentEditor({ value, onChange }) {
               borderColor: '#c0c5c2',
               borderWidth: '1px',
             },
+=======
+            borderRadius: '5px',
+          },
+          '& .MuiInputBase-input::placeholder': {
+            fontSize: '16px', // プレースホルダーのフォントサイズ
+            color: '#a0a0a0', // プレースホルダーの文字色
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'inherit', // 枠線の色を無効化
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
           },
         }}
       />

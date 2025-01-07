@@ -26,7 +26,7 @@ function Layout ({ children }) {
 
   return (
     <Grid container sx={{ width: '100vw', height: '100vh', display: 'flex-columns' }}>
-      { !isNewPost && <Header /> }
+      { !(isPostDetail || isNewPost) && <Header /> }
       <Grid item sx={{ flexGrow: 1, overFlow: 'auto' }} >{children}</Grid>
       { !(isPostDetail || isNewPost) && <Footer /> }
     </Grid>

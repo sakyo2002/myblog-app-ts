@@ -19,10 +19,14 @@
     "lucide-react": "^0.456.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.28.0",
     "rehype-highlight": "^7.0.1",
     "remark-gfm": "^4.0.0"
+=======
+    "react-router-dom": "^6.28.0"
+>>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
   },
   "devDependencies": {
     "@eslint/js": "^8.57.0",
