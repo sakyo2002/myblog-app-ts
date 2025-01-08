@@ -19,11 +19,7 @@ export default function BlogPostsForm() {
       <PostActions title={title} description={description} />
       <PostTitleInput value={title} onChange={setTitle} />
       <IconsBar />
-<<<<<<< HEAD
-      <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', height: '660px' }}>
-=======
       <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', height: '100%' }}>
->>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
         <Box sx={{ flex: 1 }}>
           <PostContentEditor value={description} onChange={setDescription} />
         </Box>

@@ -29,13 +29,10 @@ export const useBlogPosts = () => {
   }, [])
 
   const fetchPostById = async (postId) => {
-<<<<<<< HEAD
     if (!postId) {
       console.error("Post ID is undefined", error);
       return;
     }
-=======
->>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
     setLoading(true); //ローディング開始
     const { data, error } = await supabase
     .from('posts')

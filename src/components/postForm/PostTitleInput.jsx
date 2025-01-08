@@ -16,10 +16,7 @@ export default function PostTitleInput({ value, onChange }) {
         value={value}
         multiline
         minRows={1}
-<<<<<<< HEAD
         maxRows={1}
-=======
->>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
         onChange={handleChange}
         InputProps={{
           style: {
@@ -31,7 +28,6 @@ export default function PostTitleInput({ value, onChange }) {
         sx={{
           '& .MuiOutlinedInput-root': {
             borderRadius: '5px',
-<<<<<<< HEAD
             '&:hover fieldset': {
               borderColor: '#c0c5c2', // ホバー時のボーダーの色を通常時と同じに設定
             },
@@ -39,12 +35,6 @@ export default function PostTitleInput({ value, onChange }) {
               fontSize: '16px', // プレースホルダーのフォントサイズ
               color: '#a0a0a0', // プレースホルダーの文字色
             },
-=======
-          },
-          '& .MuiInputBase-input::placeholder': {
-            fontSize: '16px', // プレースホルダーのフォントサイズ
-            color: '#a0a0a0', // プレースホルダーの文字色
->>>>>>> 612d5168bed98bd295f11387c7d420ff08f87ec2
           },
         }}
       />
