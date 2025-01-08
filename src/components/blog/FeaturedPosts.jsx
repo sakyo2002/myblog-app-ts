@@ -34,7 +34,7 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
             image={getRandomImageUrl()}
             sx={{
               aspectRatio: '16 / 9',
-              height: '210px',
+              height: '250px',
               borderBottom: '1px solid',
               borderColor: 'divider',
             }}
@@ -48,9 +48,7 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
               })}
             </Typography>
             <Typography variant='h6'>{post.title}</Typography>
-            <StyledTypography variant='body2' color='text.secondary'>
-              {post.description}
-            </StyledTypography>
+            
           </StyledCardContent>
         </StyledCard>
       </Grid>

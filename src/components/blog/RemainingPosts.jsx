@@ -37,7 +37,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             image={getRandomImageUrl()}
             sx={{
               aspectRatio: '16 / 9',
-              height: '150px',
+              height: '250px',
               borderBottom: '1px solid',
               borderColor: 'divider',
             }}
@@ -53,9 +53,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             <Typography gutterBottom variant='h6' component='div'>
               {posts[0]?.title}
             </Typography>
-            <StyledTypography variant='body2' color='text.secondary' gutterBottom>
-              {posts[0]?.description}
-            </StyledTypography>
+            
           </StyledCardContent>
         </StyledCard>
       </Grid>
@@ -84,9 +82,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
               <Typography gutterBottom variant='h6' component='div'>
                 {posts[1]?.title}
               </Typography>
-              <StyledTypography variant='body2' color='text.secondary' gutterBottom>
-                {posts[1]?.description}
-              </StyledTypography>
+              
             </StyledCardContent>
           </StyledCard>
 
@@ -111,9 +107,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
               <Typography gutterBottom variant='h6' component='div'>
                 {posts[2]?.title}
               </Typography>
-              <StyledTypography variant='body2' color='text.secondary' gutterBottom>
-                {posts[2]?.description}
-              </StyledTypography>
+              
             </StyledCardContent>
           </StyledCard>
         </Box>
@@ -136,7 +130,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             image={getRandomImageUrl()}
             sx={{
               aspectRatio: '16 / 9',
-              height: '160px',
+              height: '250px',
               borderBottom: '1px solid',
               borderColor: 'divider',
             }}
@@ -152,9 +146,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             <Typography gutterBottom variant='h6' component='div'>
               {posts[3]?.title}
             </Typography>
-            <StyledTypography variant='body2' color='text.secondary' gutterBottom>
-              {posts[3]?.description}
-            </StyledTypography>
+            
           </StyledCardContent>
         </StyledCard>
       </Grid>
