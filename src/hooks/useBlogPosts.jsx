@@ -2,30 +2,47 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabaseClient';
 
 export const useBlogPosts = () => {
-  const [posts, setPosts] = useState([])
+  const [mainPosts, setMainPosts] = useState([])
+  const [latestPosts, setLatestPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [selectedPost, setSelectedPost] = useState(null)
   // const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchAllPosts = async () => {
       setLoading(true); // データ取得開始時にローディングをtrueに設定
-      const { data, error } = await supabase
-      .from('posts')
-      .select('*')
-      .order('date', { ascending: false });
+      try {
+        //メイン
+        const { data: mainData, error: mainError } = await supabase
+        .from('posts')
+        .select('*')
+        .order('date', { ascending: false })
+        .limit(6)
 
-      if (error) {
-        console.error('Error fetching posts:', error.message);  // エラーメッセージを出力
-        setError(error.message); // エラーメッセージを設定
-      } else {
-        setPosts(data); // 取得したデータをpostsに格納
+        if (mainError) throw mainError;
+
+        //Latest
+        const { data: latestData, error: latestError } = await supabase
+        .from('posts')
+        .select('*')
+        .order('date', { ascending: false })
+        .range(6, 15);
+
+        if (latestError) throw latestError;
+
+        setMainPosts(mainData)
+        setLatestPosts(latestData)
+        
+      } catch (error) {
+        console.error('Error fetching posts:', error.message);
+        setError(error.message);
+      }finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
-    fetchPosts()
+    fetchAllPosts()
   }, [])
 
   const fetchPostById = async (postId) => {
@@ -50,8 +67,8 @@ export const useBlogPosts = () => {
   }
 
   return {
-    posts,
-    setPosts,
+    mainPosts,
+    latestPosts,
     loading,
     error,
     fetchPostById,

@@ -6,10 +6,14 @@ import Grid from '@mui/material/Grid';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BlogMainContent from './components/blog/BlogMainContent';
-import Latest from './components/latest';
+import { useLocation } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { Login } from './components/Login';
+import { SignUp } from './components/SignUp';
+import { Navigate } from 'react-router-dom';
 import BlogPostsForm from './components/postForm/BlogPostsForm';
 import PostDetail from './components/blog/PostDetail';
-import { useLocation } from 'react-router-dom';
+import EditPage from './components/common/EditPage';
 
 const theme = createTheme({
   palette: {
@@ -19,16 +23,41 @@ const theme = createTheme({
   },
 });
 
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
+  if(!user) {
+    return <Navigate to='/login' />
+  }
+
+  return children;
+}
+
+const PublicRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
+
+  return children;
+}
+
 function Layout ({ children }) {
   const location = useLocation();
   const isPostDetail = location.pathname.startsWith('/post/');
   const isNewPost = location.pathname === '/new-post'; // BlogPostsFormのパスを確認
+  const isEditPost = location.pathname.startsWith('/post/edit/');
+  const isAuthPage = location.pathname.startsWith('/login') || location.pathname.startsWith('/signup');
 
   return (
     <Grid container sx={{ width: '100vw', height: '100vh', display: 'flex-columns' }}>
-      { !(isPostDetail || isNewPost) && <Header /> }
+      { !(isNewPost || isEditPost || isAuthPage) && <Header /> }
       <Grid item sx={{ flexGrow: 1, overFlow: 'auto' }} >{children}</Grid>
-      { !(isPostDetail || isNewPost) && <Footer /> }
+      { !(isPostDetail || isNewPost || isAuthPage) && <Footer /> }
     </Grid>
   )
 }
@@ -38,18 +67,76 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
-      <Router>
-          <Layout>
-            <Routes>
-              <Route path='/' element={<>
-                <BlogMainContent />
-                <Latest />
-              </>} />
-              <Route path='/new-post' element={<BlogPostsForm />} />
-              <Route path='/post/:postId' element={<PostDetail />} />
-            </Routes>
-          </Layout>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/* Public Routes */}
+            <Route
+              path='/'
+              element={
+                <Layout>
+                  <ProtectedRoute>
+                    <BlogMainContent />
+                  </ProtectedRoute>
+                </Layout>
+              }
+            />
+            <Route
+              path='/login'
+              element={
+                <Layout>
+                  <PublicRoute>
+                    <Login />
+                  </PublicRoute>
+                </Layout>
+              }
+            />
+            <Route
+              path='/signup'
+              element={
+                <Layout>
+                  <PublicRoute>
+                    <SignUp />
+                  </PublicRoute>
+                </Layout>
+              }
+            />
+            <Route
+              path='/post/:postId'
+              element={
+                <Layout>
+                  <ProtectedRoute>
+                    <PostDetail />
+                  </ProtectedRoute>
+                </Layout>
+              }
+            />
+            {/* Protected Routes */}
+            <Route
+              path='/new-post'
+              element={
+                <Layout>
+                  <ProtectedRoute>
+                    <BlogPostsForm />
+                  </ProtectedRoute>
+                </Layout>
+              }
+            />
+            <Route
+              path='/post/edit/:postId'
+              element={
+                <Layout>
+                  <ProtectedRoute>
+                    <EditPage />
+                  </ProtectedRoute>
+                </Layout>
+              }
+            />
+            {/* Catch all route - リダイレクト */}
+            <Route path='*' element={<Navigate to='/login' replace />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

@@ -1,7 +1,8 @@
-import { Grid, Typography } from '@mui/material';
-import { StyledCard, StyledCardContent, StyledTypography } from '../styled/CardComponents';
+import { Grid, Typography, Divider } from '@mui/material';
+import { StyledCard, StyledCardContent } from '../styled/CardComponents';
 import { CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';
 
 // ランダムな画像URLを生成する関数
 const getRandomImageUrl = () => {
@@ -40,15 +41,20 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
             }}
           />
           <StyledCardContent>
-            <Typography variant='body2' color='text.secondary'>
+            <Typography variant='h6'>{post.title}</Typography>
+            <Divider />
+            <MarkdownRenderer
+              content={post.description}
+              preview={true}
+              maxLength={90}
+            />
+            <Typography variant='body2'>
               {new Date(post.date).toLocaleDateString('jp-JP', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
               })}
             </Typography>
-            <Typography variant='h6'>{post.title}</Typography>
-            
           </StyledCardContent>
         </StyledCard>
       </Grid>

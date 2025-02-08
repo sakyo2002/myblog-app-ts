@@ -1,7 +1,9 @@
-import { Grid, Box, Typography } from '@mui/material';
-import { StyledCard, StyledCardContent, StyledTypography } from '../styled/CardComponents';
+import { Grid, Box, Typography, Divider } from '@mui/material';
+import { StyledCard, StyledCardContent } from '../styled/CardComponents';
 import { CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';
+
 
 // ランダムな画像URLを生成する関数
 const getRandomImageUrl = () => {
@@ -43,17 +45,22 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             }}
           />
           <StyledCardContent>
-            <Typography variant='body2' color='text.secondary'>
+            <Typography gutterBottom variant='h6' component='div'>
+              {posts[0]?.title}
+            </Typography>
+            <Divider />
+            <MarkdownRenderer
+              content={posts[0].description}
+              preview={true}
+              maxLength={80}
+            />
+            <Typography variant='body2'>
               {new Date(posts[0].date).toLocaleDateString('jp-JP', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
               })}
             </Typography>
-            <Typography gutterBottom variant='h6' component='div'>
-              {posts[0]?.title}
-            </Typography>
-            
           </StyledCardContent>
         </StyledCard>
       </Grid>
@@ -72,17 +79,22 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             onClick={() => handleCardClick(posts[1].id)}
           >
             <StyledCardContent>
-              <Typography variant='body2' color='text.secondary'>
+              <Typography gutterBottom variant='h6' component='div'>
+                {posts[1]?.title}
+              </Typography>
+              <Divider />
+              <MarkdownRenderer
+                content={posts[1].description}
+                preview={true}
+                maxLength={140}
+              />
+              <Typography variant='body2'>
                 {new Date(posts[1].date).toLocaleDateString('jp-JP', {
                   year: 'numeric',
                   month: '2-digit',
                   day: '2-digit',
                 })}
               </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-                {posts[1]?.title}
-              </Typography>
-              
             </StyledCardContent>
           </StyledCard>
 
@@ -97,17 +109,22 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             onClick={() => handleCardClick(posts[2].id)}
           >
             <StyledCardContent>
-              <Typography variant='body2' color='text.secondary'>
+              <Typography gutterBottom variant='h6' component='div'>
+                {posts[2]?.title}
+              </Typography>
+              <Divider />
+              <MarkdownRenderer
+                content={posts[2].description}
+                preview={true}
+                maxLength={140}
+              />
+              <Typography variant='body2'>
                 {new Date(posts[2].date).toLocaleDateString('jp-JP', {
                   year: 'numeric',
                   month: '2-digit',
                   day: '2-digit',
                 })}
               </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-                {posts[2]?.title}
-              </Typography>
-              
             </StyledCardContent>
           </StyledCard>
         </Box>
@@ -136,17 +153,22 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             }}
           />
           <StyledCardContent>
-            <Typography variant='body2' color='text.secondary'>
+            <Typography gutterBottom variant='h6' component='div'>
+              {posts[3]?.title}
+            </Typography>
+            <Divider />
+            <MarkdownRenderer
+              content={posts[3].description}
+              preview={true}
+              maxLength={80}
+            />
+            <Typography variant='body2'>
               {new Date(posts[3].date).toLocaleDateString('jp-JP', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
               })}
             </Typography>
-            <Typography gutterBottom variant='h6' component='div'>
-              {posts[3]?.title}
-            </Typography>
-            
           </StyledCardContent>
         </StyledCard>
       </Grid>

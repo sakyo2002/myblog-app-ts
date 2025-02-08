@@ -3,10 +3,11 @@ import { Container, Box } from '@mui/material';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { FeaturedPosts } from './FeaturedPosts';
 import { RemainingPosts } from './RemainingPosts';
+import Latest from '../latest';
 import LoadingPage from '../common/LoadingPage';
 
 export default function BlogMainContent() {
-  const { posts, loading, error } = useBlogPosts()
+  const { mainPosts, latestPosts, loading, error } = useBlogPosts()
   const [ focusedCardIndex, setFocusedCardIndex ] = useState(null)
 
   const handleFocus = (index) => {
@@ -23,23 +24,22 @@ export default function BlogMainContent() {
 
   if (error) return <div>{error}</div>
 
-  const displayedPosts = posts.slice(0, 6)
-
   return (
     <Container maxWidth='xl' sx={{ mt: 12 }}>
       <Box sx={{ p: 3 }}>
         <FeaturedPosts
-          posts={displayedPosts.slice(0, 2)}
+          posts={mainPosts.slice(0, 2)}
           onFocus={handleFocus}
           onBlur={handleBlur}
           focusedCardIndex={focusedCardIndex}
         />
         <RemainingPosts
-          posts={displayedPosts.slice(2)}
+          posts={mainPosts.slice(2)}
           onFocus={handleFocus}
           onBlur={handleBlur}
           focusedCardIndex={focusedCardIndex}
         />
+        <Latest post={latestPosts} />
       </Box>
     </Container>
   )

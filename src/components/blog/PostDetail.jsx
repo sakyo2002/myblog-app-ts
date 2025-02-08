@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useBlogPosts } from "../../hooks/useBlogPosts";
 import { Typography, Box, Divider } from "@mui/material";
-import ReactMarkdown from 'react-markdown';
+import { MarkdownRenderer } from "../../hooks/MarkdownRenderer";
 import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
 import LoadingPage from "../common/LoadingPage";
+import SideBar from "../common/SideBar";
+import { Toc } from './Tocbot';
 
-// const markdown = `
-// \`\`\`javascript
-// console.log("Hello, World!");
-// \`\`\`
-// `;
+
 
 export default function PostDetail() {
   const { postId } = useParams();
@@ -37,18 +34,25 @@ export default function PostDetail() {
     <Box
       fullWidth
       sx={{
+          display: 'flex',
           width: '100%',
           height: '100%',
           backgroundColor: '#f5f5f5',
-          p: '120px 40px 0'
+          p: '120px 40px 0',
         }}
     >
+      {/*サイドバー */}
+      <Box>
+        <SideBar postId={postId} />
+      </Box>
+
+      {/*メインコンテンツ*/}
       <Box
         sx={{
+          width: '75%',
           backgroundColor: '#fff',
           borderRadius: '8px',
           p: 3,
-
         }}
       >
         {/*投稿ヘッダー*/}
@@ -61,25 +65,28 @@ export default function PostDetail() {
           >
             {selectedPost.title}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography variant='body2' color='text.secondary' sx={{ display: 'inline-block' }}>
             投稿日: {new Date(selectedPost.date).toLocaleDateString('jp-JP', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
               })}
+            <Divider />
           </Typography>
         </Box>
 
-        <Divider />
 
         {/*投稿本文*/}
         <Box
+          className="content" // コンテンツ用のクラスを追加
           sx={{
+            position: 'relative',
             lineHeight: 1.8,
             fontSize: '1rem',
             color: '#333',
-            '& h1, & h2, & h3': {
+            '& h2, & h3': {
               margin: '1em 0',
+              position: 'relative',
             },
             '& ul': {
               paddingLeft: '20px',
@@ -103,65 +110,23 @@ export default function PostDetail() {
             },
           }}
         >
-          <ReactMarkdown
-            children={selectedPost.description}
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeHighlight]}
-            components={{
-              code({ node, inline, className, children }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return !inline && !match ? (
-                  <code
-                    style={{
-                      backgroundColor: '#f3f3f3',
-                      padding: '2px 4px',
-                      margin: '4px 2px',
-                      borderRadius: '4px',
-                      display: 'inline-flex',
-                      width: 'fit-content',
-                      whiteSpace: 'pre-wrap',
-                      wordBreak: 'break-word',
-                      color: '#333',
-                      fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
-                      fontSize: '0.9em'
-                    }}
-                  >
-                    {children}
-                  </code>
-                ) : (
-                  <pre
-                    style={{
-                      backgroundColor: '#1e1e1e',
-                      padding: '16px',
-                      borderRadius: '6px',
-                      overflow: 'auto',
-                      whiteSpace: 'pre',
-                      margin: '16px 0',
-                      border: '1px solid #d0d7de',
-                      fontSize: '0.875em'
-                    }}
-                  >
-                    <code
-                      style={{
-                        display: 'block',
-                        color: '#f5f5f5',
-                        fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace',
-                        lineHeight: '1.45',
-                        wordWrap: 'normal',
-                        tabSize: 2,
-                      }}
-                    >
-                      {children}
-                    </code>
-                  </pre>
-                );
-              },
-            }}
-          />
+          
+        <MarkdownRenderer content={selectedPost.description} />
         </Box>
-
-        <Divider />
       </Box>
+
+      {/* 目次 */}
+      <Box
+        sx={{
+          width: "25%",
+          paddingLeft: '16px',
+          backgroundColor: "#f5f5f5",
+          borderLeft: "1px solid #ddd",
+        }}
+      >
+        <Toc />
+      </Box>
+
     </Box>
   )
 }

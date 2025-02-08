@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import CodeSproutIcon from './CodeSproutIcon';
 import SearchBar from './SearchBar';
 import CreatePostButton from "./CreatePostButton";
+import { useNavigate } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -24,11 +25,17 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }))
 
 export default function Header() {
-  const [open, setOpen] = React.useState(false)
 
-  const toggleDrawer = React.useCallback((newOpen) => () => {
-    setOpen(newOpen);
-  }, []);
+  const navigate = useNavigate();
+
+  const handleSignUp = () => {
+    console.log('Navigating to signup'); // デバッグ用のログを追加
+    navigate('/signup', { replace: true });
+  };
+
+  const handleLogin = () => {
+    navigate('/login', { replace: true });
+  };
 
   return (
     <AppBar
@@ -49,10 +56,22 @@ export default function Header() {
               alignItems: 'center',
             }}
           >
-            <Button color='primary' variant='text' size='small' sx={{ textTransform: 'none' }} >
+            <Button
+              color='primary'
+              variant='text'
+              size='small'
+              sx={{ textTransform: 'none' }}
+              onClick={handleSignUp}
+            >
               Sign in
             </Button>
-            <Button color='primary' variant='contained' size='small' sx={{ textTransform: 'none' }} >
+            <Button
+              color='primary'
+              variant='contained'
+              size='small'
+              sx={{ textTransform: 'none' }}
+              onClick={handleLogin}
+            >
               Sign up
             </Button>
           </Box>
