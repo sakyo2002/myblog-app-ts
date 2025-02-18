@@ -4,13 +4,14 @@ import { Box } from '@mui/material';
 import PostActions from './PostActions';
 import PostTitleInput from "./PostTitleInput";
 import PostContentEditor from './PostContentEditor';
-import IconsBar from "./Icons/IconsBar";
+import IconsBar from "../../../../Icons/IconsBar";
 import MarkdownContent from "./MarkdownContent";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "../../../../utils/supabaseClient";
 
 export default function BlogPostsForm({ initialValues = null, isEdit = false }) {
   const navigate = useNavigate();
+  const [showMarkdownGuide, setShowMarkdownGuide] = useState(false);
   const [title, setTitle] = useState(initialValues?.title || '');
   const [description, setDescription] = useState(initialValues?.description || '');
   const [saving, setSaving] = useState(false);
@@ -28,12 +29,6 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }) 
     try {
       setSaving(true);
       setError(null)
-
-      // バリデーションチェック
-      if (!validatePost()) {
-        setSaving(false);
-        return;
-      }
 
       const postData = {
         title,// 投稿のタイトル
@@ -68,35 +63,55 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }) 
     }
   }
 
+  const handleImageUpload = (imageUrl) => {
+    setDescription((prev) => prev + `\n\n![画像](${imageUrl})\n\n`);
+  }
+
   return (
     <Box
       fullWidth
-      sx={{ backgroundColor: '#f5f5f5', p: 2, height: '100vh', display: 'flex', flexDirection: 'column' }}
+      sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}
     >
-      <PostActions
-        title={title}
-        description={description}
-        onSave={handleSave}
-        saving={saving}
-        error={error}
-        isEdit={isEdit}
-      />
-      <PostTitleInput
-        value={title}
-        onChange={setTitle}
-        disabled={saving}
-      />
-      <IconsBar />
-      <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', height: '100%' }}>
-        <Box sx={{ flex: 1 }}>
-          <PostContentEditor
-            value={description}
-            onChange={setDescription}
-            disabled={saving}
+      <Box sx={{ display: 'flex' }}>
+        <IconsBar
+          onImageUpload={handleImageUpload}
+          onMarkdownGuideToggle={() => setShowMarkdownGuide(!showMarkdownGuide)}
+        />
+
+        <MarkdownContent isVisible={showMarkdownGuide} />
+
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            marginLeft: showMarkdownGuide ? '300px' : '0',
+            transition: 'margin-left 0.4s ease-in-out', // この行を追加
+
+            }}
+          >
+          <PostActions
+            title={title}
+            description={description}
+            onSave={handleSave}
+            saving={saving}
+            error={error}
+            isEdit={isEdit}
           />
-        </Box>
-        <Box sx={{ width: '400px' }}>
-          <MarkdownContent />
+          <Box sx={{ width: '620px', margin: '50px auto 0' }}>
+            <PostTitleInput
+              value={title}
+              onChange={setTitle}
+              disabled={saving}
+              sx={{ flex: '0 0 auto' }}
+            />
+            <PostContentEditor
+              value={description}
+              onChange={setDescription}
+              disabled={saving}
+              sx={{ flex: 1 }}
+            />
+          </Box>
         </Box>
       </Box>
     </Box>

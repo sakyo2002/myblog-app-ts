@@ -2,9 +2,9 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Box, Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { StyledCard, StyledCardContent } from './styled/CardComponents';
-import { useBlogPosts } from '../hooks/useBlogPosts';
-import { MarkdownRenderer } from '../hooks/MarkdownRenderer';
+import { StyledCard, StyledCardContent } from '../../styles/components/CardComponents';
+import { useBlogPosts } from '../../hooks/useBlogPosts';
+import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';
 import { useNavigate } from 'react-router-dom';
 
 export default function Latest() {

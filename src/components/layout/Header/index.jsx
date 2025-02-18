@@ -5,9 +5,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import CodeSproutIcon from './CodeSproutIcon';
+import CodeSproutIcon from '../../../Icons/CodeSproutIcon';
 import SearchBar from './SearchBar';
-import CreatePostButton from "./CreatePostButton";
+import CreatePostButton from "../../common/CreatePostButton";
 import { useNavigate } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -46,7 +46,6 @@ export default function Header() {
         <StyledToolbar variant='dense' disableGutters>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <CodeSproutIcon />
-            <SearchBar />
             <CreatePostButton />
           </Box>
           <Box
@@ -56,6 +55,7 @@ export default function Header() {
               alignItems: 'center',
             }}
           >
+            <SearchBar />
             <Button
               color='primary'
               variant='text'

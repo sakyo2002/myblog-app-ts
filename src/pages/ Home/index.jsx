@@ -3,8 +3,8 @@ import { Container, Box } from '@mui/material';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { FeaturedPosts } from './FeaturedPosts';
 import { RemainingPosts } from './RemainingPosts';
-import Latest from '../latest';
-import LoadingPage from '../common/LoadingPage';
+import Latest from './Latest';
+import LoadingPage from '../../components/common/LoadingPage';
 
 export default function BlogMainContent() {
   const { mainPosts, latestPosts, loading, error } = useBlogPosts()

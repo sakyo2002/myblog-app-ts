@@ -3,17 +3,17 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import BlogMainContent from './components/blog/BlogMainContent';
+import Header from './components/layout/Header';
+import Footer from './pages/ Home/Footer';
+import BlogMainContent from './pages/ Home/index';
 import { useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { Login } from './components/Login';
-import { SignUp } from './components/SignUp';
+import { Login } from './pages/LoginPage';
+import { SignUp } from './pages/SignUpPage';
 import { Navigate } from 'react-router-dom';
-import BlogPostsForm from './components/postForm/BlogPostsForm';
-import PostDetail from './components/blog/PostDetail';
-import EditPage from './components/common/EditPage';
+import BlogPostsForm from './components/layout/post/PostForm/BlogPostsForm';
+import PostDetail from './pages/PostDetail';
+import EditPage from './pages/EditPage';
 
 const theme = createTheme({
   palette: {

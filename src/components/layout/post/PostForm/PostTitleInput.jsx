@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, Box } from "@mui/material";
+import { textAlign } from "@mui/system";
 
 export default function PostTitleInput({ value, onChange }) {
   const handleChange = (event) => {
@@ -7,11 +8,11 @@ export default function PostTitleInput({ value, onChange }) {
   };
 
   return (
-    <Box sx={{ mb: 1 }}>
+    <Box sx={{ boxSizing: 'border-box' }}>
       <TextField
-        aria-label='タイトルを入力してください'
-        variant='outlined'
-        placeholder='タイトルを入力してください'
+        aria-label='記事タイトル'
+        variant='standard'
+        placeholder='記事タイトル'
         fullWidth
         value={value}
         multiline
@@ -19,15 +20,24 @@ export default function PostTitleInput({ value, onChange }) {
         maxRows={1}
         onChange={handleChange}
         InputProps={{
-          style: {
-            fontSize: '20px',
-            padding: 10,
-            backgroundColor: 'white', // 入力エリア全体の背景色
+          disableUnderline: true,
+          sx: {
+            margin: '16px 0',
+            fontSize: '35px',
+            '& input::placeholder, & textarea::placeholder': {
+              textAlign: 'left',  // プレースホルダーの配置
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '100%'
+            },
           }
         }}
         sx={{
           '& .MuiOutlinedInput-root': {
-            borderRadius: '5px',
+            '& fieldset': {
+            },
             '&:hover fieldset': {
               borderColor: '#c0c5c2', // ホバー時のボーダーの色を通常時と同じに設定
             },

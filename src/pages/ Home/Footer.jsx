@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import GithubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/X';
-import SitemarkIcon from './CodeSproutIcon';
+import SitemarkIcon from '../../Icons/CodeSproutIcon';
 import { Grid } from '@mui/material';
 
 function Copyright() {

@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../../utils/supabaseClient";
-import BlogPostsForm from "../postForm/BlogPostsForm";
-import LoadingPage from "./LoadingPage";
+import { supabase } from "../utils/supabaseClient";
+import BlogPostsForm from "../components/layout/post/PostForm/BlogPostsForm";
+import LoadingPage from "../components/common/LoadingPage";
 
 export default function EditPage() {
   const { postId } = useParams();

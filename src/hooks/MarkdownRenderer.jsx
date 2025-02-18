@@ -51,6 +51,20 @@ export const MarkdownRenderer = ({ content, preview = false, maxLength }) => {
             {children}
           </h3>
         ),
+        // 画像コンポーネントをカスタマイズ
+        img: ({node, ...props}) => (
+          <img
+            {...props}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+              display: 'block',
+              margin: '16px auto',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            }}
+          />
+        ),
         code({ inline, className, children }) {
           const match = /language-(\w+)/.exec(className || '');
           return !inline && !match ? (

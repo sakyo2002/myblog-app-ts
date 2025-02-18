@@ -1,5 +1,5 @@
 import { Grid, Box, Typography, Divider } from '@mui/material';
-import { StyledCard, StyledCardContent } from '../styled/CardComponents';
+import { StyledCard, StyledCardContent } from '../../styles/components/CardComponents';
 import { CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';

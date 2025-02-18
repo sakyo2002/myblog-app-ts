@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useBlogPosts } from "../../hooks/useBlogPosts";
+import { useBlogPosts } from "../hooks/useBlogPosts";
 import { Typography, Box, Divider } from "@mui/material";
-import { MarkdownRenderer } from "../../hooks/MarkdownRenderer";
-import remarkGfm from 'remark-gfm';
-import LoadingPage from "../common/LoadingPage";
-import SideBar from "../common/SideBar";
+import { MarkdownRenderer } from "../hooks/MarkdownRenderer";
+import LoadingPage from "../components/common/LoadingPage";
+import SideBar from "../components/layout/post/PostSideBar";
 import { Toc } from './Tocbot';
 
 

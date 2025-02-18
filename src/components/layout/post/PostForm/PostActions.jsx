@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
 import { Box, Stack, Button } from '@mui/material';
-import ReactIcon from './ReactIcon';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { PostSuccessDialog } from './PostSuccessDialog';
-import { PostErrorDialog } from './PostErrorDialog';
+import CodeSproutIcon from '../../../../Icons/CodeSproutIcon';
+import { PostSuccessDialog } from '../PostSuccessDialog';
+import { PostErrorDialog } from '../PostErrorDialog';
 import { useNavigate } from 'react-router-dom';
-import { handleSubmit } from '../../utils/supabaseClient';
+import { handleSubmit } from '../../../../utils/supabaseClient';
 
 export default function PostActions({ title, description }) {
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const navigate = useNavigate();
 
-  const clickBack = () => {
-    navigate(-1)
-  };
-
-   // 入力値のバリデーション
-   const validatePost = () => {
+  // 入力値のバリデーション
+  const validatePost = () => {
     if (!title.trim()) {
       setError("タイトルを入力してください。");
       return false;
@@ -55,15 +50,10 @@ export default function PostActions({ title, description }) {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        mb: 2,
+        width: '100%',
+        p: 2,
       }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Button onClick={clickBack} sx={{ padding: 0, minWidth: 'auto' }} >
-          <ChevronLeftIcon color='primary' sx={{ cursor: 'pointer' }} />
-        </Button>
-        <ReactIcon />
-      </Box>
+      <CodeSproutIcon />
       <Box>
         <Stack direction='row' spacing={2}>
           <Button variant='outlined'>下書き保存</Button>

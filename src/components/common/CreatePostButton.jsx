@@ -12,7 +12,7 @@ export default function CreatePostButton() {
   return (
     <Button
       color='primary'
-      variant='contained'
+      variant='outlined'
       size='small'
       onClick={handleClick}
     >

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import tocbot from 'tocbot';
-import '../styled/Toc.css';
+import '../styles/Toc.css';
 
 export const Toc = () => {
   const [activeHeadingId, setActiveHeadingId] = useState(null);
