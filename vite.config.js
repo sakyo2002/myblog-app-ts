@@ -9,6 +9,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, './src'),
       '@mui/icons-material': path.resolve(__dirname, 'node_modules/@mui/icons-material/esm'), // 絶対パスに変更
     },
   },

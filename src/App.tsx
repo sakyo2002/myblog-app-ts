@@ -4,14 +4,14 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Header from './components/layout/Header';
-import Footer from './pages/ Home/Footer';
+import Footer from './components/layout/Footer';
 import BlogMainContent from './pages/ Home/index';
 import { useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Login } from './pages/LoginPage';
 import { SignUp } from './pages/SignUpPage';
 import { Navigate } from 'react-router-dom';
-import BlogPostsForm from './components/layout/post/PostForm/BlogPostsForm';
+import BlogPostsForm from './components/post/PostForm/BlogPostsForm';
 import PostDetail from './pages/PostDetail';
 import EditPage from './pages/EditPage';
 

@@ -4,10 +4,10 @@ import { Box } from '@mui/material';
 import PostActions from './PostActions';
 import PostTitleInput from "./PostTitleInput";
 import PostContentEditor from './PostContentEditor';
-import IconsBar from "../../../../Icons/IconsBar";
+import IconsBar from "../../../Icons/IconsBar";
 import MarkdownContent from "./MarkdownContent";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../../../utils/supabaseClient";
+import { supabase } from "../../../utils/supabaseClient";
 
 export default function BlogPostsForm({ initialValues = null, isEdit = false }) {
   const navigate = useNavigate();

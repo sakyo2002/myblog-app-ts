@@ -4,7 +4,7 @@ import { useBlogPosts } from "../hooks/useBlogPosts";
 import { Typography, Box, Divider } from "@mui/material";
 import { MarkdownRenderer } from "../hooks/MarkdownRenderer";
 import LoadingPage from "../components/common/LoadingPage";
-import SideBar from "../components/layout/post/PostSideBar";
+import SideBar from "../components/post/PostSideBar";
 import { Toc } from './Tocbot';
 
 

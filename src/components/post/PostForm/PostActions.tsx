@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Stack, Button } from '@mui/material';
-import CodeSproutIcon from '../../../../Icons/CodeSproutIcon';
+import CodeSproutIcon from '../../../Icons/CodeSproutIcon';
 import { PostSuccessDialog } from '../PostSuccessDialog';
 import { PostErrorDialog } from '../PostErrorDialog';
 import { useNavigate } from 'react-router-dom';
-import { handleSubmit } from '../../../../utils/supabaseClient';
+import { handleSubmit } from '../../../utils/supabaseClient';
 
 export default function PostActions({ title, description }) {
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
