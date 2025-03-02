@@ -15,6 +15,7 @@ import BlogPostsForm from './components/post/PostForm/BlogPostsForm';
 import PostDetail from './pages/PostDetail';
 import EditPage from './pages/EditPage';
 
+// テーマの型定義
 const theme = createTheme({
   palette: {
     background: {
@@ -23,50 +24,79 @@ const theme = createTheme({
   },
 });
 
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+//共通のPropsインターフェース
+interface RouteProps {
+  children: React.ReactNode;
+}
 
+//ProtectedRouteの型定義
+const ProtectedRoute: React.FC<RouteProps> = ({ children }) => {
+  const { user, loading } = useAuth();
+  
   if(loading) {
     return <div>Loading...</div>
   }
   if(!user) {
     return <Navigate to='/login' />
   }
-
-  return children;
+  
+  return <>{children}</>;
 }
 
-const PublicRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+// PublicRouteの型定義
+const PublicRoute: React.FC<RouteProps> = ({ children }) => {
+  const { loading } = useAuth();
 
   if(loading) {
     return <div>Loading...</div>
   }
-
-  return children;
+  
+  return <>{children}</>;
 }
 
-function Layout ({ children }) {
+// Layoutの型定義
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+
   const location = useLocation();
   const isPostDetail = location.pathname.startsWith('/post/');
   const isNewPost = location.pathname === '/new-post'; // BlogPostsFormのパスを確認
   const isEditPost = location.pathname.startsWith('/post/edit/');
   const isAuthPage = location.pathname.startsWith('/login') || location.pathname.startsWith('/signup');
-
+  
   return (
-    <Grid container sx={{ width: '100vw', height: '100vh', display: 'flex-columns' }}>
+    <Grid
+      container
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        }}
+    >
       { !(isNewPost || isEditPost || isAuthPage) && <Header /> }
-      <Grid item sx={{ flexGrow: 1, overFlow: 'auto' }} >{children}</Grid>
+      <Grid
+        item
+        sx={{
+          flexGrow: 1,
+          overflow: 'auto'
+          }}
+        >
+          {children}
+        </Grid>
       { !(isPostDetail || isNewPost || isAuthPage) && <Footer /> }
     </Grid>
-  )
-}
+  );
+};
 
-
-function App() {
+// Appコンポーネントの型定義
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline enableColorScheme />
+      <CssBaseline />
       <AuthProvider>
         <Router>
           <Routes>
