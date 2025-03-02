@@ -1,19 +1,39 @@
 import React, { createContext, useContext, useEffect, useCallback, useRef, useState } from 'react';
+import { User, Subscription } from '@supabase/supabase-js';
 import { supabase } from '../utils/supabaseClient';
 
-const AuthContext = createContext({});
+// コンテキストの型定義
+interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  supabase: typeof supabase;
+}
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+
+// 初期値を型付きで設定
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+  supabase
+});
+
+
+// Providerの型定義
+interface AuthProviderProps{
+  children: React.ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const isInitialized = useRef(false);
 
-  const updateSession = useCallback((session) => {
+  const updateSession = useCallback((session: {user: User} | null) => {
     setUser(session?.user ?? null);
   }, [])
 
   useEffect(() => {
-    let subscription;
+    let subscription: Subscription | null = null;
 
     // セッションの確認
     const initializeAuth = async () => {
@@ -65,7 +85,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   
   if(context === undefined) {
