@@ -1,13 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
+import { Database } from '../types/supabase';
 
 
 const supabaseUrl = 'https://ffalgqlxregokogtadrb.supabase.co'; // プロジェクトのURL
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmYWxncWx4cmVnb2tvZ3RhZHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwMTU2NTEsImV4cCI6MjA0NzU5MTY1MX0.RA1KQvGEYTd3yGkQYW5aiG2nOtaIdAjh9azfg7CfsZA'; // 先ほどコピーしたanonキー
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// クライアントに型定義を追加
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
-export async function createPost(title, description) {
+// 投稿の型定義
+interface Post {
+  title: string;
+  description: string;
+  date: string;
+}
 
+// createPost関数の型定義
+export async function createPost(
+  title: string,
+  description: string
+): Promise<Post[] | null> {
   // 正規表現でコードブロックを検出
   const codeBlockRegex = /`{3}([\s\S]*?)`{3}/g;
 
@@ -41,13 +53,22 @@ export async function createPost(title, description) {
   return data;
 }
 
-export async function handleSubmit(event, { title, description }) {
+// handleSubmitの型定義
+interface SubmitData {
+  title: string;
+  description: string;
+}
+
+export async function handleSubmit(
+  event: React.FormEvent<HTMLFormElement>,
+  { title, description }: SubmitData
+): Promise<void> {
   event.preventDefault();
 
   try {
     createPost(title, description)
   } catch(error) {
     console.error('Error creating post:', error);
-    console.log({ title, tag, description });  // デバッグ用にログを出力
+    console.log({ title, description });  // デバッグ用にログを出力
   }
 };
