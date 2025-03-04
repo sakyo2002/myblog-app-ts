@@ -1,15 +1,23 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import BlogPostsForm from "../components/post/PostForm/BlogPostsForm";
 import LoadingPage from "../components/common/LoadingPage";
+import type { Database } from "@/types/supabase";
+
+// 投稿データの型定義
+type Post = Database['public']['Tables']['posts']['Row'];
+
+//エラーの型定義
+interface ApiError {
+  message: string;
+}
 
 export default function EditPage() {
-  const { postId } = useParams();
-  const [postData, setPostData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { postId } = useParams<{ postId: string }>();
+  const [postData, setPostData] = useState<Post | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -17,7 +25,7 @@ export default function EditPage() {
         const { data, error } = await supabase
         .from('posts')
         .select('*')
-        .eq('id', postId)
+        .eq('id', Number(postId))
         .single();
   
         if(error) {
@@ -26,8 +34,9 @@ export default function EditPage() {
 
         setPostData(data)
       } catch (error) {
-        console.log('Error fetching post:', error.message);
-        setError(error.message);
+        const apiError = error as ApiError;
+        console.log('Error fetching post:', apiError.message);
+        setError(apiError.message);
       } finally {
         setLoading(false)
       }
