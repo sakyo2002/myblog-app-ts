@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { Box } from '@mui/material';
 import PostActions from './PostActions';
@@ -8,14 +7,30 @@ import IconsBar from "../../../Icons/IconsBar";
 import MarkdownContent from "./MarkdownContent";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabaseClient";
+import { Database } from "@/types/supabase";
 
-export default function BlogPostsForm({ initialValues = null, isEdit = false }) {
+type Post = Database['public']['Tables']['posts']['Row'];
+
+// Insert型定義
+type PostInsert = Database['public']['Tables']['posts']['Insert'];
+
+//エラーの型定義
+interface ApiError {
+  message: string;
+}
+
+interface BlogPostsFormProps {
+  initialValues?: Post | null;
+  isEdit?: boolean;
+}
+
+export default function BlogPostsForm({ initialValues = null, isEdit = false }: BlogPostsFormProps) {
   const navigate = useNavigate();
   const [showMarkdownGuide, setShowMarkdownGuide] = useState(false);
   const [title, setTitle] = useState(initialValues?.title || '');
   const [description, setDescription] = useState(initialValues?.description || '');
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   //編集モードで初期値が変更された場合に更新
   useEffect(() => {
@@ -28,9 +43,14 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }) 
   const handleSave = async (isDraft = false) => {
     try {
       setSaving(true);
-      setError(null)
+      setError(null);
 
-      const postData = {
+      // initialValuesがnullでないことを確認
+      if (!initialValues) {
+        throw new Error("初期値が設定されていません。");
+      }
+
+      const postData: PostInsert = {
         title,// 投稿のタイトル
         description,// 投稿の本文内容
         is_draft: isDraft,// 下書きかどうかのフラグ（true: 下書き, false: 公開）
@@ -55,21 +75,21 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }) 
 
       // 保存成功後のリダイレクト
       navigate(isEdit ? `/post/${initialValues.id}` : '/');
-    } catch (err) {
-      setError(err.message);
-      console.log('保存中にエラーが発生しました', err)
+    } catch (error) {
+      const apiError = error as ApiError;
+      setError(apiError.message);
+      console.log('保存中にエラーが発生しました', error)
     }finally {
       setSaving(false);
     }
   }
 
-  const handleImageUpload = (imageUrl) => {
+  const handleImageUpload = (imageUrl: string) => {
     setDescription((prev) => prev + `\n\n![画像](${imageUrl})\n\n`);
   }
 
   return (
     <Box
-      fullWidth
       sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}
     >
       <Box sx={{ display: 'flex' }}>
