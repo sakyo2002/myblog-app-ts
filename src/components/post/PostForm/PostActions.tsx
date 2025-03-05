@@ -1,49 +1,50 @@
-import React, { useState } from 'react';
-import { Box, Stack, Button } from '@mui/material';
+import { useState } from 'react';
+import { Box, Stack, Button, Typography } from '@mui/material';
 import CodeSproutIcon from '../../../Icons/CodeSproutIcon';
 import { PostSuccessDialog } from '../PostSuccessDialog';
 import { PostErrorDialog } from '../PostErrorDialog';
 import { useNavigate } from 'react-router-dom';
-import { handleSubmit } from '../../../utils/supabaseClient';
 
-export default function PostActions({ title, description }) {
-  const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
-  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
+interface PostActionsProps {
+  title: string;
+  description: string;
+  onSave: (isDraft: boolean) => Promise<void>;
+  saving: boolean;
+}
+
+export default function PostActions({ title, description, onSave, saving }: PostActionsProps) {
+  const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState<boolean>(false);
+  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState<boolean>(false);
+  const [validationError, setValidationError] = useState<string | null>(null)
   const navigate = useNavigate();
 
   // 入力値のバリデーション
-  const validatePost = () => {
+  const validateInputs = () => {
     if (!title.trim()) {
-      setError("タイトルを入力してください。");
+      setValidationError("タイトルを入力してください。");
       return false;
     }
     if (!description.trim()) {
-      setError("本文を入力してください。");
+      setValidationError("本文を入力してください。");
       return false;
     }
+    setValidationError(null);
     return true;
   };
 
-  const clickSubmit = async (e) => {
+  const clickSubmit = async (e: React.MouseEvent<HTMLButtonElement>, isDraft: boolean) => {
     e.preventDefault();
+    if (!validateInputs) return;
+
     try {
-      await handleSubmit(e, {
-        title,
-        description,
-      })
-
-      // バリデーションチェック
-      if (!validatePost()) {
-        setSaving(false);
-        return;
-      }
-
+      await onSave(isDraft)
       setIsSuccessDialogOpen(true);
+
     } catch (error) {
       setIsErrorDialogOpen(true)
       console.error('Error submitting post:', error);
     }
-  }
+  };
 
   return (
     <Box
@@ -56,10 +57,19 @@ export default function PostActions({ title, description }) {
       <CodeSproutIcon />
       <Box>
         <Stack direction='row' spacing={2}>
-          <Button variant='outlined'>下書き保存</Button>
-          <Button variant='contained' color='primary' onClick={clickSubmit}>公開保存</Button>
+          <Button variant='outlined'>
+            下書き保存
+          </Button>
+          <Button variant='contained' color='primary' onClick={(e) => clickSubmit(e, false)} disabled={saving}>
+            公開保存
+          </Button>
         </Stack>
       </Box>
+      {validationError && (
+        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+          {validationError}
+        </Typography>
+      )}
       <PostSuccessDialog
         open={isSuccessDialogOpen}
         onClose={() => setIsSuccessDialogOpen(false)}
