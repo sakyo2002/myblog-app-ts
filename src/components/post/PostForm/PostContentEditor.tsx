@@ -1,8 +1,15 @@
-import React from "react";
 import { Box, TextField } from "@mui/material";
+import { SxProps } from "@mui/material";
 
-export default function PostContentEditor({ value, onChange }) {
-  const handleChange = (event) => {
+interface PostContentEditorProps {
+  value: string
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  sx: SxProps;
+}
+
+export default function PostContentEditor({ value, onChange, disabled, sx }: PostContentEditorProps) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
 
@@ -13,7 +20,8 @@ export default function PostContentEditor({ value, onChange }) {
         position: 'relative',
         '& .MuiTextField-root': {
           height: '100%',
-        }
+        },
+        ...sx,
     }}>
       <TextField
         aria-label='本文'
@@ -24,6 +32,7 @@ export default function PostContentEditor({ value, onChange }) {
         onChange={handleChange}
         multiline
         minRows={5}
+        disabled={disabled}
         InputProps={{
           disableUnderline: true,
           sx: {
