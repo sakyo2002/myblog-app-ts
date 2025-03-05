@@ -1,14 +1,20 @@
-import React from "react";
 import { TextField, Box } from "@mui/material";
-import { textAlign } from "@mui/system";
+import { SxProps } from "@mui/material";
 
-export default function PostTitleInput({ value, onChange }) {
-  const handleChange = (event) => {
+interface PostTitleInputProps {
+  value: string
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  sx?: SxProps;
+}
+
+export default function PostTitleInput({ value, onChange, disabled, sx }: PostTitleInputProps) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
 
   return (
-    <Box sx={{ boxSizing: 'border-box' }}>
+    <Box sx={{ boxSizing: 'border-box', ...sx }}>
       <TextField
         aria-label='記事タイトル'
         variant='standard'
@@ -19,6 +25,7 @@ export default function PostTitleInput({ value, onChange }) {
         minRows={1}
         maxRows={1}
         onChange={handleChange}
+        disabled={disabled}
         InputProps={{
           disableUnderline: true,
           sx: {
