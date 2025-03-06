@@ -12,7 +12,18 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",                // プロジェクトのルートディレクトリを指定
+    "paths": {                     // パスエイリアスの設定
+      "@/*": ["src/*"]
+    },
+    "typeRoots": [                // 型定義ファイルの検索場所
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "forceConsistentCasingInFileNames": true,  // ファイル名の大文字小文字を厳密にチェック
+    "allowJs": true,              // JavaScriptファイルのインポートを許可
+    "checkJs": true,              // JavaScriptファイルの型チェックを有効化
   },
-  "include": ["src"]
+  "include": ["src"],
 }

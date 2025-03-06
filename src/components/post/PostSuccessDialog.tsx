@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -9,7 +8,12 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export const PostSuccessDialog = ({ open, onClose }) => {
+interface PostSuccessDialogProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export const PostSuccessDialog = ({ open, onClose }: PostSuccessDialogProps) => {
   const navigate = useNavigate();
 
   const handleClose = () => {

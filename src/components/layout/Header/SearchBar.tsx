@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   InputAdornment,
   Popover,
@@ -8,24 +8,24 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import CustomSearchIcon from '@/Icons/CustomSearchIcon';
 import { MarkdownRenderer } from "../../../hooks/MarkdownRenderer";
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../../utils/supabaseClient'
 
 export default function SearchBar() {
   const navigate = useNavigate();
-  const searchIconRef = useRef(null);  // SearchIconのref
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
+  const searchIconRef = useRef<HTMLDivElement | null>(null);  // SearchIconのref
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   // Popoverの開閉状態
   const isOpen = Boolean(anchorEl);
 
   // 検索処理
-  const performSearch = async (query)=> {
+  const performSearch = async (query: string) => {
     console.log('検索クエリ:', query); // 検索クエリの確認
 
     if (!query.trim()) {
@@ -67,8 +67,13 @@ export default function SearchBar() {
   }, [searchQuery])
 
   // 検索アイコンクリック時の処理
-  const handleSearchClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleSearchClick = (event: React.MouseEvent<Element>) => {
+    const target = event.currentTarget;
+
+    // 最も近い親要素を取得（またはnullを許容）
+    const anchorElement = target.closest('div') || target;
+
+    setAnchorEl(anchorElement as HTMLElement);
   };
 
   // Popoverを閉じる処理
@@ -79,21 +84,19 @@ export default function SearchBar() {
   }
 
   // 入力値変更時の処理
-  const handleSearchChange = (event)=> {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>)=> {
     setSearchQuery(event.target.value);
   }
 
   return (
     <Box component='div' sx={{ display: 'inline-block' }}>
-      <InputAdornment sx={{ color: 'text.primary' }}>
-        <SearchIcon
-          ref={searchIconRef}
+      <InputAdornment position='end' sx={{ color: 'text.primary' }}>
+        <CustomSearchIcon
           fontSize="small"
           onClick={handleSearchClick}
           sx={{ cursor: 'pointer' }}
         />
       </InputAdornment>
-
       <Popover
         open={isOpen}
         anchorReference="none"
@@ -131,7 +134,7 @@ export default function SearchBar() {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <SearchIcon
+                  <CustomSearchIcon
                     fontSize="small"
                     sx={{ cursor: 'pointer' }}
                   />
@@ -144,7 +147,6 @@ export default function SearchBar() {
               {searchResults.map((result) => (
                 <ListItem
                   key={result.id}
-                  button
                   sx={{
                     cursor: 'pointer',
                     backgroundColor: 'white',
@@ -169,11 +171,12 @@ export default function SearchBar() {
                         <MarkdownRenderer
                           content={result.description}
                           preview={true}
+                          maxLength={100}
                         />
                       </div>
                     }
                     primaryTypographyProps={{
-                      variant: 'title2',
+                      variant: 'subtitle2',
                       noWrap: true,
                     }}
                     secondaryTypographyProps={{

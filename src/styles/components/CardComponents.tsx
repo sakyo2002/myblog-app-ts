@@ -1,5 +1,5 @@
-import { styled } from '@mui/material/styles'
-import { Card, CardContent, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles';
+import { Card, CardContent, Typography } from '@mui/material';
 
 // カード全体のスタイル
 export const StyledCard = styled(Card)(({ theme }) => ({

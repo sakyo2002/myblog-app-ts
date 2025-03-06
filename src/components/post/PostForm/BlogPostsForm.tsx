@@ -46,35 +46,43 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }: 
       setError(null);
 
       // initialValuesがnullでないことを確認
-      if (!initialValues) {
-        throw new Error("初期値が設定されていません。");
+      if (!initialValues && !isEdit) {
+        const postData: PostInsert = {
+          title,// 投稿のタイトル
+          description,// 投稿の本文内容
+          is_draft: isDraft,// 下書きかどうかのフラグ（true: 下書き, false: 公開）
+          date: new Date().toISOString(),// 更新日時（ISO形式の文字列）
+        };
+        
+        const response = await supabase
+        .from('posts')
+        .insert([postData])
+        .select('*');
+
+        if (response.error) throw response.error;
+
+        navigate('/');
+        return;
       }
 
-      const postData: PostInsert = {
-        title,// 投稿のタイトル
-        description,// 投稿の本文内容
-        is_draft: isDraft,// 下書きかどうかのフラグ（true: 下書き, false: 公開）
-        updated_at: new Date().toISOString(),// 更新日時（ISO形式の文字列）
-      };
-
-      let response;
-      
       // 編集モード：既存の投稿を更新
-      if (isEdit) {
-        response = await supabase
+      if (isEdit && initialValues) {
+        const postData: PostInsert = {
+          title,
+          description,
+          is_draft: isDraft,
+          date: new Date().toISOString(),
+        };
+
+        const response = await supabase
         .from('posts')
         .update(postData)
         .eq('id', initialValues.id);
-      } else {                         // 新規作成モード：新しい投稿を作成
-        response = await supabase
-        .from('posts')
-        .insert([{ ...postData, created_at: new Date().toISOString() }])
+
+        if (response.error) throw response.error;
+
+        navigate(`/post/${initialValues.id}`);
       }
-
-      if (response.error) throw response.error;
-
-      // 保存成功後のリダイレクト
-      navigate(isEdit ? `/post/${initialValues.id}` : '/');
     } catch (error) {
       const apiError = error as ApiError;
       setError(apiError.message);
@@ -82,7 +90,7 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }: 
     }finally {
       setSaving(false);
     }
-  }
+  };
 
   const handleImageUpload = (imageUrl: string) => {
     setDescription((prev) => prev + `\n\n![画像](${imageUrl})\n\n`);
@@ -115,8 +123,6 @@ export default function BlogPostsForm({ initialValues = null, isEdit = false }: 
             description={description}
             onSave={handleSave}
             saving={saving}
-            error={error}
-            isEdit={isEdit}
           />
           <Box sx={{ width: '620px', margin: '50px auto 0' }}>
             <PostTitleInput

@@ -52,23 +52,3 @@ export async function createPost(
   }
   return data;
 }
-
-// handleSubmitの型定義
-interface SubmitData {
-  title: string;
-  description: string;
-}
-
-export async function handleSubmit(
-  event: React.FormEvent<HTMLFormElement>,
-  { title, description }: SubmitData
-): Promise<void> {
-  event.preventDefault();
-
-  try {
-    createPost(title, description)
-  } catch(error) {
-    console.error('Error creating post:', error);
-    console.log({ title, description });  // デバッグ用にログを出力
-  }
-};

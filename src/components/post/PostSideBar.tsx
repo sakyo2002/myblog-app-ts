@@ -1,14 +1,16 @@
-import React from "react";
 import { Box } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import XIcon from '@mui/icons-material/X';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
 
-export default function SideBar({ postId }) {
+interface SideBarProps {
+  postId: number;
+}
 
+export default function SideBar({ postId }: SideBarProps) {
   const navigate = useNavigate();
-
+  
   const handleEditClick = () => {
     navigate(`/post/edit/${postId}`);
   }

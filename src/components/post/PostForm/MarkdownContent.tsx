@@ -1,7 +1,10 @@
-import React from 'react';
 import { Box, Typography, List, ListItem, ListItemText } from '@mui/material';
 
-export default function MarkdownContent({ isVisible }) {
+interface MarkdownContentProps {
+  isVisible: boolean;
+}
+
+export default function MarkdownContent({ isVisible }: MarkdownContentProps) {
   return (
     <Box
       sx={{
@@ -37,7 +40,7 @@ export default function MarkdownContent({ isVisible }) {
       }}
     >
       <Box sx={{ margin: '16px 0 8px' }}>
-        <Typography variant='h7'>
+        <Typography variant='h6'>
           Markdown記法チートシート
         </Typography>
       </Box>
