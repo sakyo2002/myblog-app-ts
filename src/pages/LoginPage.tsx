@@ -11,15 +11,15 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 
-export const Login = () => {
+export const Login: React.FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setLoading(true);
     setError(null);
 
@@ -27,7 +27,7 @@ export const Login = () => {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
-      })
+      });
 
       if(error) throw error;
       navigate('/'); // ログイン成功後にホームページへリダイレクト

@@ -10,15 +10,15 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { supabase } from "../utils/supabaseClient";
 
-export const SignUp = () => {
+export const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setLoading(true);
     setError(null);
 
@@ -33,6 +33,7 @@ export const SignUp = () => {
       alert('確認メールを送信しました。メールをご確認ください。');
       navigate('/login');
     } catch (error) {
+      if (error instanceof Error)
       setError(error.message);
     } finally {
       setLoading(false);

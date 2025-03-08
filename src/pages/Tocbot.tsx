@@ -1,9 +1,15 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import tocbot from 'tocbot';
+import { useEffect, useState, useCallback } from 'react';
+import * as tocbot from 'tocbot';
 import '../styles/Toc.css';
 
-export const Toc = () => {
-  const [activeHeadingId, setActiveHeadingId] = useState(null);
+interface HeadingPosition {
+  id: string;
+  top: number;
+}
+
+export const Toc: React.FC = () => {
+  const [activeHeadingId, setActiveHeadingId] = useState<string | null>(null);
+  let timeoutId: number | null = null;
   
   // 初期化時に最初の見出しをアクティブに設定
   useEffect(() => {
@@ -13,63 +19,51 @@ export const Toc = () => {
     }
   }, []);
 
-  const calculateHeadingPositions = useCallback(() => {
-  const headings = Array.from(document.querySelectorAll('h2, h3'));
-  const positions = headings.map(heading => ({
-    id: heading.id,
-    top: heading.getBoundingClientRect().top + window.scrollY,
-  }));
+  const calculateHeadingPositions = useCallback<() => HeadingPosition[]>(() => {
+    const headings = Array.from(document.querySelectorAll('h2, h3'));
+    const positions = headings.map(heading => ({
+      id: heading.id,
+      top: heading.getBoundingClientRect().top + window.scrollY,
+    }));
   
   return positions.sort((a, b) => a.top - b.top);
   }, []);
 
-  const findActiveHeading = useCallback((headingPositions) => {
+  const findActiveHeading = useCallback((headingPositions: HeadingPosition[]) => {
     if (!headingPositions.length) return null;
     
     const scrollPosition = window.scrollY;
-    console.log('Current scroll position:', scrollPosition); // スクロール位置
-    console.log('Active heading ID before:', activeHeadingId); // 現在のアクティブID
-    
     let selectedId = null;
+
     // スクロール位置より上にある最後の見出しを探す
     for (let i = 0; i < headingPositions.length; i++) {
       const current = headingPositions[i];
-      console.log(`Checking heading ${current.id}: top=${current.top}, adjusted=${current.top - 300}`);
       
       if (scrollPosition >= current.top - 300) {
         selectedId = current.id;
-        console.log(`Selected heading: ${selectedId}`);
       } else {
         break;
-      }
+      };
     }
-    
-    console.log('Final selected ID:', selectedId);
     return selectedId;
-  }, [activeHeadingId]);
+  }, []);
+
+  const handleScroll = useCallback(() => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = window.setTimeout(() => {
+      const headingPositions = calculateHeadingPositions();
+      const newActiveId = findActiveHeading(headingPositions);
+      if (newActiveId !== activeHeadingId) {
+        setActiveHeadingId(newActiveId);
+      }
+      timeoutId = null;
+    }, 100); // スクロール処理の遅延時間
+  }, [activeHeadingId, calculateHeadingPositions, findActiveHeading])
 
   useEffect(() => {
-    let timeoutId;
     let headingPositions = calculateHeadingPositions();
-
-    const handleScroll = () => {
-      // スクロール中は処理をスキップ
-      if (timeoutId) {
-        return;
-      }
-
-      timeoutId = setTimeout(() => {
-        const newActiveId = findActiveHeading(headingPositions);
-        if (newActiveId !== activeHeadingId) {
-          setActiveHeadingId(newActiveId);
-        }
-        timeoutId = null;
-      }, 100); // スクロール処理の遅延時間
-    };
-
-    const handleResize = () => {
-      headingPositions = calculateHeadingPositions();
-    };
 
     // tocbotの初期化
     tocbot.init({
@@ -88,19 +82,18 @@ export const Toc = () => {
       activeListItemClass: 'is-active-li',
       hasInnerContainers: true,
     });
+    
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { capture: true });
+    window.addEventListener('resize', () => {
+      headingPositions = calculateHeadingPositions();
+    });
 
     return () => {
       tocbot.destroy();
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
     };
-  }, [activeHeadingId, calculateHeadingPositions, findActiveHeading]);
+  }, [handleScroll]);
 
   // アクティブな見出しの状態を更新
   useEffect(() => {

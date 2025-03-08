@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+// import { useParams } from "react-router-dom";
 import { useBlogPosts } from "../hooks/useBlogPosts";
 import { Typography, Box, Divider } from "@mui/material";
 import { MarkdownRenderer } from "../hooks/MarkdownRenderer";
@@ -7,14 +7,14 @@ import LoadingPage from "../components/common/LoadingPage";
 import SideBar from "../components/post/PostSideBar";
 import { Toc } from './Tocbot';
 
-
-
-export default function PostDetail() {
-  const { postId } = useParams();
-  const { fetchPostById, selectedPost, loading, error } = useBlogPosts();
+export const PostDetail: React.FC = () => {
+  // const { postId } = useParams<Params>();
+  const { postId, fetchPostById, selectedPost, loading, error } = useBlogPosts();
 
   useEffect(() => {
-    fetchPostById(postId);
+    if (postId) {
+      fetchPostById(postId);
+    }
   }, [postId]);
 
   if (loading) {
@@ -31,18 +31,16 @@ export default function PostDetail() {
 
   return (
     <Box
-      fullWidth
       sx={{
           display: 'flex',
           width: '100%',
-          height: '100%',
           backgroundColor: '#f5f5f5',
           p: '120px 40px 0',
         }}
     >
       {/*サイドバー */}
       <Box>
-        <SideBar postId={postId} />
+        <SideBar postId={Number(postId)} />
       </Box>
 
       {/*メインコンテンツ*/}
@@ -110,7 +108,11 @@ export default function PostDetail() {
           }}
         >
           
-        <MarkdownRenderer content={selectedPost.description} />
+        <MarkdownRenderer
+          content={selectedPost.description}
+          preview={false}
+          maxLength={100}
+        />
         </Box>
       </Box>
 

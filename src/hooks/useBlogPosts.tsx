@@ -1,13 +1,34 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 
-export const useBlogPosts = () => {
-  const [mainPosts, setMainPosts] = useState([])
-  const [latestPosts, setLatestPosts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [selectedPost, setSelectedPost] = useState(null)
-  // const [searchQuery, setSearchQuery] = useState('')
+// interface Params extends Record<string, string | undefined> {
+//   postId: string | undefined;
+// }
+
+interface Post {
+  title: string;
+  description: string;
+  date: string;
+}
+
+interface useBlogPostsProps {
+  postId: string | undefined;
+  mainPosts: Post[];
+  latestPosts: Post[];
+  loading: boolean;
+  error: string | null;
+  selectedPost: Post | null;
+  fetchPostById: (postId: string) => void;
+}
+
+export const useBlogPosts = (): useBlogPostsProps => {
+  const { postId } = useParams();
+  const [mainPosts, setMainPosts] = useState<Post[]>([])
+  const [latestPosts, setLatestPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
 
   useEffect(() => {
     const fetchAllPosts = async () => {
@@ -35,8 +56,10 @@ export const useBlogPosts = () => {
         setLatestPosts(latestData)
         
       } catch (error) {
-        console.error('Error fetching posts:', error.message);
-        setError(error.message);
+        if (error instanceof Error) {
+          console.error('Error fetching posts:', error.message);
+          setError(error.message);
+        }
       }finally {
         setLoading(false);
       }
@@ -45,16 +68,16 @@ export const useBlogPosts = () => {
     fetchAllPosts()
   }, [])
 
-  const fetchPostById = async (postId) => {
+  const fetchPostById = async (postId: string) => {
     if (!postId) {
-      console.error("Post ID is undefined", error);
+      console.error("Post ID is undefined");
       return;
     }
     setLoading(true); //ローディング開始
     const { data, error } = await supabase
     .from('posts')
     .select('*')
-    .eq('id', postId) //postIdに基づいてフィルタリング
+    .eq('id', Number(postId)) //postIdに基づいてフィルタリング
     .single(); //単一の投稿を取得
 
     if (error) {
@@ -67,6 +90,7 @@ export const useBlogPosts = () => {
   }
 
   return {
+    postId,
     mainPosts,
     latestPosts,
     loading,

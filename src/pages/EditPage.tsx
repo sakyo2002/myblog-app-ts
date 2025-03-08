@@ -13,7 +13,7 @@ interface ApiError {
   message: string;
 }
 
-export default function EditPage() {
+export const EditPage: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
   const [postData, setPostData] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);

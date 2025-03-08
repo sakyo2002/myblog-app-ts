@@ -12,8 +12,8 @@ import { Login } from './pages/LoginPage';
 import { SignUp } from './pages/SignUpPage';
 import { Navigate } from 'react-router-dom';
 import BlogPostsForm from './components/post/PostForm/BlogPostsForm';
-import PostDetail from './pages/PostDetail';
-import EditPage from './pages/EditPage';
+import { PostDetail } from './pages/PostDetail';
+import { EditPage } from './pages/EditPage';
 
 // テーマの型定義
 const theme = createTheme({

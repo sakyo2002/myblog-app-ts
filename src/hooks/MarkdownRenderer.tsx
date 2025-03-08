@@ -18,7 +18,7 @@ const generateSlug = (text: string) => {
 
 interface MarkdownRendererProps {
   content: string;
-  preview: boolean;
+  preview?: boolean;
   maxLength: number;
 }
 
