@@ -2,7 +2,7 @@ import React from "react";
 import { Box, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function SearchIconButton() {
+export const SearchIconButton: React.FC = () => {
   return (
     <Box sx={{ mx: 1 }}>
       <label>
@@ -14,4 +14,3 @@ export default function SearchIconButton() {
 
 )
 }
-{/* プレビューの表示機能追加予定 */}

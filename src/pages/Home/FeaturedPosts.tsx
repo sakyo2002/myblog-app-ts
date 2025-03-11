@@ -3,6 +3,7 @@ import { StyledCard, StyledCardContent } from '../../styles/components/CardCompo
 import { CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';
+import { Database } from '@/types/supabase';
 
 // ランダムな画像URLを生成する関数
 const getRandomImageUrl = () => {
@@ -10,10 +11,19 @@ const getRandomImageUrl = () => {
   return `https://picsum.photos/800/450?random=${randomIndex}`;
 };
 
-export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
+type Post = Database['public']['Tables']['posts']['Row'];
+
+interface FeaturedPostsProps {
+  posts: Post[];
+  onFocus: (index: number) => void;
+  onBlur: (index: number) => void;
+  focusedCardIndex: number | null;
+};
+
+export const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
   const navigate = useNavigate();
 
-  const handleCardClick = (postId) => {
+  const handleCardClick = (postId: number) => {
     navigate(`/post/${postId}`);
   };
 
@@ -24,7 +34,7 @@ export const FeaturedPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
         <StyledCard
           variant='outlined'
           onFocus={() => onFocus(index)}
-          onBlur={onBlur}
+          onBlur={() => onBlur(index)}
           tabIndex={0}
           className={focusedCardIndex === index ? 'Mui-focused' : ' '}
           onClick={() => handleCardClick(post.id)}

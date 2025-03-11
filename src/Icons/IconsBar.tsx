@@ -1,11 +1,15 @@
-import React from 'react';
 import { Box } from '@mui/material';
-import ImageUploadButton from './ImageUploadButton';
-import SearchIconButton from './SearchIconButton';
-import InformationIconButton from './InformationIcon';
-import KeyboardIconButton from './KeyboardIcon';
+import { ImageUploadButton } from './ImageUploadButton';
+import { SearchIconButton } from './SearchIconButton';
+import { InformationIconButton } from './InformationIcon';
+import { KeyboardIconButton } from './KeyboardIcon';
 
-export default function IconsBar({ onImageUpload, onMarkdownGuideToggle }) {
+interface IconsBarProps {
+  onImageUpload: (imageUrl: string) => void;
+  onMarkdownGuideToggle: () => void;
+}
+
+export const IconsBar: React.FC<IconsBarProps> = ({ onImageUpload, onMarkdownGuideToggle }) => {
 
   const handleOpenMarkdown = () => {
     console.log('KeyboardIcon clicked!'); // デバッグ用

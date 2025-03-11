@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-// import { useParams } from "react-router-dom";
 import { useBlogPosts } from "../hooks/useBlogPosts";
 import { Typography, Box, Divider } from "@mui/material";
 import { MarkdownRenderer } from "../hooks/MarkdownRenderer";
@@ -8,7 +7,6 @@ import SideBar from "../components/post/PostSideBar";
 import { Toc } from './Tocbot';
 
 export const PostDetail: React.FC = () => {
-  // const { postId } = useParams<Params>();
   const { postId, fetchPostById, selectedPost, loading, error } = useBlogPosts();
 
   useEffect(() => {

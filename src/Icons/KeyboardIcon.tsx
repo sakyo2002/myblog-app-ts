@@ -1,8 +1,11 @@
-import React from "react";
 import { Box, IconButton } from '@mui/material';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 
-export default function KeyboardIconButton({ onClick }) {
+interface KeyboardIconButtonPorps {
+  onClick: () => void;
+}
+
+export const KeyboardIconButton: React.FC<KeyboardIconButtonPorps> = ({ onClick }) => {
   return (
     <Box sx={{ mx: 1 }}>
       <label>

@@ -3,7 +3,16 @@ import { StyledCard, StyledCardContent } from '../../styles/components/CardCompo
 import { CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';
+import { Database } from '@/types/supabase';
 
+type Post = Database['public']['Tables']['posts']['Row'];
+
+interface RemainingPostsProps {
+  posts: Post[];
+  onFocus: (index: number) => void;
+  onBlur: (index: number) => void;
+  focusedCardIndex: number | null;
+}
 
 // ランダムな画像URLを生成する関数
 const getRandomImageUrl = () => {
@@ -11,10 +20,10 @@ const getRandomImageUrl = () => {
   return `https://picsum.photos/800/450?random=${randomIndex}`;
 };
 
-export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
+export const RemainingPosts: React.FC<RemainingPostsProps> = ({ posts, onFocus, onBlur, focusedCardIndex }) => {
   const navigate = useNavigate();
 
-  const handleCardClick = (postId) => {
+  const handleCardClick = (postId: number) => {
     navigate(`/post/${postId}`);
   };
 
@@ -28,7 +37,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
           variant='outlined'
           sx={{ height: '100%' }}
           onFocus={() => onFocus(2)}
-          onBlur={onBlur}
+          onBlur={() => onBlur(2)}
           tabIndex={0}
           className={focusedCardIndex === 2 ? 'Mui-focused' : ' '}
           onClick={() => handleCardClick(posts[0].id)}
@@ -73,7 +82,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             variant='outlined'
             sx={{ height: '100%' }}
             onFocus={() => onFocus(3)}
-            onBlur={onBlur}
+            onBlur={() => onBlur(3)}
             tabIndex={0}
             className={focusedCardIndex === 3 ? 'Mui-focused' : ' '}
             onClick={() => handleCardClick(posts[1].id)}
@@ -103,7 +112,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
             variant='outlined'
             sx={{ height: '100%' }}
             onFocus={() => onFocus(4)}
-            onBlur={onBlur}
+            onBlur={() => onBlur(4)}
             tabIndex={0}
             className={focusedCardIndex === 4 ? 'Mui-focused' : ' '}
             onClick={() => handleCardClick(posts[2].id)}
@@ -136,7 +145,7 @@ export const RemainingPosts = ({ posts, onFocus, onBlur, focusedCardIndex }) => 
           variant='outlined'
           sx={{ height: '100%' }}
           onFocus={() => onFocus(5)}
-          onBlur={onBlur}
+          onBlur={() => onBlur(5)}
           tabIndex={0}
           className={focusedCardIndex === 5 ? 'Mui-focused' : ' '}
           onClick={() => handleCardClick(posts[3].id)}

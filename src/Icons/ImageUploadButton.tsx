@@ -1,23 +1,25 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Box, IconButton } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
 import { supabase } from "../utils/supabaseClient";
 
 const supabaseUrl = 'https://ffalgqlxregokogtadrb.supabase.co'; // プロジェクトのURL
 
-export default function ImageUploadButton({ onImageUpload }) {
-  const fileInputRef = useRef(null);
+interface ImageUploadButtonProps {
+  onImageUpload: (imageUrl: string) => void;
+}
+
+export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onImageUpload }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState('');
 
   const handleClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
 
-  const handleFileChange = async (event) => {
-    setError('');
-
-     // ファイルが選択されているか確認
-     if (!event.target.files || event.target.files.length === 0) {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    // ファイルが選択されているか確認
+    if (!event.target.files || event.target.files.length === 0) {
       setError('ファイルが選択されていません');
       return;
     }

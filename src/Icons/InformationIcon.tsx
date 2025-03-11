@@ -2,7 +2,7 @@ import React from "react";
 import { Box, IconButton } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
-export default function InformationIconButton() {
+export const InformationIconButton = () => {
   return (
     <Box sx={{ mx: 1 }}>
       <label>

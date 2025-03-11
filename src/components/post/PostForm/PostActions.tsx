@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Stack, Button, Typography } from '@mui/material';
-import CodeSproutIcon from '../../../Icons/CodeSproutIcon';
+import { CodeSproutIcon } from '../../../Icons/CodeSproutIcon';
 import { PostSuccessDialog } from '../PostSuccessDialog';
 import { PostErrorDialog } from '../PostErrorDialog';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ interface PostActionsProps {
   saving: boolean;
 }
 
-export default function PostActions({ title, description, onSave, saving }: PostActionsProps) {
+export const PostActions = ({ title, description, onSave, saving }: PostActionsProps) => {
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState<boolean>(false);
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState<boolean>(false);
   const [validationError, setValidationError] = useState<string | null>(null)
@@ -32,8 +32,8 @@ export default function PostActions({ title, description, onSave, saving }: Post
     return true;
   };
 
-  const clickSubmit = async (e: React.MouseEvent<HTMLButtonElement>, isDraft: boolean) => {
-    e.preventDefault();
+  const clickSubmit = async (event: React.MouseEvent<HTMLButtonElement>, isDraft: boolean) => {
+    event.preventDefault();
     if (!validateInputs) return;
 
     try {

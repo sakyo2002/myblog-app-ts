@@ -3,14 +3,14 @@ import { Container, Box } from '@mui/material';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { FeaturedPosts } from './FeaturedPosts';
 import { RemainingPosts } from './RemainingPosts';
-import Latest from './Latest';
+import { Latest } from './Latest';
 import LoadingPage from '../../components/common/LoadingPage';
 
-export default function BlogMainContent() {
-  const { mainPosts, latestPosts, loading, error } = useBlogPosts()
-  const [ focusedCardIndex, setFocusedCardIndex ] = useState(null)
+export const BlogMainContent: React.FC = () => {
+  const { mainPosts, loading, error } = useBlogPosts()
+  const [ focusedCardIndex, setFocusedCardIndex ] = useState<number | null>(null)
 
-  const handleFocus = (index) => {
+  const handleFocus = (index: number) => {
     setFocusedCardIndex(index)
   }
 
@@ -39,7 +39,7 @@ export default function BlogMainContent() {
           onBlur={handleBlur}
           focusedCardIndex={focusedCardIndex}
         />
-        <Latest post={latestPosts} />
+        <Latest />
       </Box>
     </Container>
   )

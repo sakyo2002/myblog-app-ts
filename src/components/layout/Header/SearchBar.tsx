@@ -8,12 +8,13 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
-import CustomSearchIcon from '@/Icons/CustomSearchIcon';
+import { CustomSearchIcon } from '@/Icons/CustomSearchIcon';
+import SearchIcon from '@mui/icons-material/Search';
 import { MarkdownRenderer } from "../../../hooks/MarkdownRenderer";
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../../utils/supabaseClient'
 
-export default function SearchBar() {
+export const SearchBar: React.FC = () => {
   const navigate = useNavigate();
   const searchIconRef = useRef<HTMLDivElement | null>(null);  // SearchIconのref
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -26,8 +27,6 @@ export default function SearchBar() {
 
   // 検索処理
   const performSearch = async (query: string) => {
-    console.log('検索クエリ:', query); // 検索クエリの確認
-
     if (!query.trim()) {
       setSearchResults([]);
       return;
@@ -35,7 +34,6 @@ export default function SearchBar() {
 
     setIsSearching(true);
     try {
-      console.log('検索クエリ実行:', query); // デバッグログ
       const { data, error } = await supabase
       .from('posts')
       .select('id, title, description')
@@ -43,7 +41,6 @@ export default function SearchBar() {
       .order('date', { ascending: false })
       .limit(10);
 
-      console.log('検索結果:', data); // 検索結果の確認
       console.log('エラー:', error); // エラーの確認
 
       if (error) throw error;
@@ -91,11 +88,7 @@ export default function SearchBar() {
   return (
     <Box component='div' sx={{ display: 'inline-block' }}>
       <InputAdornment position='end' sx={{ color: 'text.primary' }}>
-        <CustomSearchIcon
-          fontSize="small"
-          onClick={handleSearchClick}
-          sx={{ cursor: 'pointer' }}
-        />
+        <SearchIcon />
       </InputAdornment>
       <Popover
         open={isOpen}
@@ -134,10 +127,10 @@ export default function SearchBar() {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <CustomSearchIcon
-                    fontSize="small"
-                    sx={{ cursor: 'pointer' }}
-                  />
+                  {/* <CustomSearchIcon
+                    sx={{ cursor: 'pointer', fontSize: 'small' }}
+                  /> */}
+                  <SearchIcon />
                 </InputAdornment>
               )
             }}

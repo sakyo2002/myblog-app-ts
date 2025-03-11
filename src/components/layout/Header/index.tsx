@@ -5,8 +5,8 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import CodeSproutIcon from '../../../Icons/CodeSproutIcon';
-import SearchBar from './SearchBar';
+import { CodeSproutIcon } from '../../../Icons/CodeSproutIcon';
+import { SearchBar } from './SearchBar';
 import CreatePostButton from "../../common/CreatePostButton";
 import { useNavigate } from 'react-router-dom';
 

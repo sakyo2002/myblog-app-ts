@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import BlogMainContent from './pages/ Home/index';
+import { BlogMainContent } from './pages/Home/index';
 import { useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Login } from './pages/LoginPage';
@@ -72,7 +72,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       container
       sx={{
         width: '100vw',
-        height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         }}

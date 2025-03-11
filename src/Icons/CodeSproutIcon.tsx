@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function CodeSproutIcon() {
+export const CodeSproutIcon: React.FC = () => {
   const navigate = useNavigate();
+  
   const clickHomeBack = () => {
     navigate('/');
   }

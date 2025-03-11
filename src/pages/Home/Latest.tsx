@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Box, Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -7,12 +6,11 @@ import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { MarkdownRenderer } from '../../hooks/MarkdownRenderer';
 import { useNavigate } from 'react-router-dom';
 
-export default function Latest() {
-
+export const Latest: React.FC = () => {
   const navigate = useNavigate();
-  const { latestPosts, error, loading } = useBlogPosts();
+  const { latestPosts } = useBlogPosts();
 
-  const handleClick = (postId) => {
+  const handleClick = (postId: number) => {
     navigate(`/post/${postId}`);
   }
 

@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
+import { Database } from '@/types/supabase';
 
-// interface Params extends Record<string, string | undefined> {
-//   postId: string | undefined;
-// }
-
-interface Post {
-  title: string;
-  description: string;
-  date: string;
-}
+type Post = Database['public']['Tables']['posts']['Row'];
 
 interface useBlogPostsProps {
   postId: string | undefined;
